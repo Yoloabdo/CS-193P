@@ -29,20 +29,47 @@ class ViewController: UIViewController {
         }
     }
     
+    
+    @IBAction func operate(sender: UIButton) {
+        let operation = sender.currentTitle!
+        if userInTheMiddleOfTypingANumber{
+            enter()
+        }
+        switch operation{
+        case"+": performOperation({$0 + $1})
+        case"−": performOperation({$0 - $1})
+        case"÷": performOperation({$1 / $0})
+        case"×": performOperation({$0 * $1})
+        default: break
+            
+        }
+    }
+    
+    func performOperation(operation: (Double, Double) -> Double){
+        if operandStack.count >= 2{
+            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
+            enter()
+        }
+
+    }
+    
+    
     var operandStack = Array<Double>()
     
     
-    @IBAction func enter(sender: UIButton) {
+    @IBAction func enter() {
         userInTheMiddleOfTypingANumber = false
-        operandStack.append(<#T##newElement: Double##Double#>)
+        operandStack.append(displayValue)
+        print(displayValue)
     }
     
     var displayValue:Double {
         get{
-            
+            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue
         }
         set{
-            
+            display.text = "\(newValue)"
+            userInTheMiddleOfTypingANumber = false
         }
     }
 
