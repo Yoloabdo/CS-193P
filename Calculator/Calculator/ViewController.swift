@@ -36,10 +36,11 @@ class ViewController: UIViewController {
             enter()
         }
         switch operation{
-        case"+": performOperation({$0 + $1})
-        case"−": performOperation({$0 - $1})
-        case"÷": performOperation({$1 / $0})
-        case"×": performOperation({$0 * $1})
+            // using closures 
+        case"+": performOperation {$0 + $1}
+        case"−": performOperation {$1 - $0}
+        case"÷": performOperation {$1 / $0}
+        case"×": performOperation {$0 * $1}
         default: break
             
         }
