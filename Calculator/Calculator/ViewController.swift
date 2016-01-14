@@ -47,7 +47,12 @@ class ViewController: UIViewController {
     @IBAction func backSpace(sender: UIButton) {
         // to be fixed
         var num = "\(displayValue)"
+        
         num = String(num.characters.dropLast())
+        if num.characters.last == "." {
+            num = String(num.characters.dropLast(2))
+        }
+        
         if(num.characters.count == 0) {
             num = "0.0"
         }
@@ -76,6 +81,7 @@ class ViewController: UIViewController {
         case"cos": performOp { cos($0) }
         case"tan": performOp { tan($0) }
         case"+/-":performOp { -$0 }
+        case"x²": performOp { $0 * $0 }
 
         default: break
             

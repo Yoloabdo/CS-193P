@@ -224,6 +224,9 @@
                                                         <state key="normal" title="π">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="appendDigit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="i1Y-d6-2mQ"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="57N-CB-Y6j">
                                                         <rect key="frame" x="120" y="0.0" width="120" height="81"/>
@@ -280,6 +283,9 @@
                                                         <state key="normal" title="x²">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="operate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cWi-Og-3Gq"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PFG-GT-Z2M">
                                                         <rect key="frame" x="120" y="0.0" width="120" height="81"/>
