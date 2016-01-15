@@ -13,27 +13,24 @@ class ViewController: UIViewController {
     @IBOutlet weak var display: UILabel!
     
     var userInTheMiddleOfTypingANumber = false
-    var dotUsed = false
     
     @IBOutlet weak var historyView: UILabel!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
+   
     @IBAction func appendDigit(sender: UIButton) {
         var digit = sender.currentTitle!
         
+        // to check if the dot had been used before in the entered number.
         if digit == "." {
-            if(dotUsed){
+            let text = display.text!
+            if (text.characters.contains(".")){
                 return
-            }else{
-                dotUsed = true
             }
         }
+        // here we add pie as predefined value to the view.
         if digit == "π" {
             digit = "\(M_1_PI)"
+            enter()
         }
         
         
@@ -44,19 +41,19 @@ class ViewController: UIViewController {
             userInTheMiddleOfTypingANumber = true
         }
     }
+    
     @IBAction func backSpace(sender: UIButton) {
-        // to be fixed
-        var num = "\(displayValue)"
+        // backspace deletes the number that user just entered, it handles it as text
+        // just to simplfy editing double number and just do it as a string only problem.
         
+        var num = "\(display.text!)"
         num = String(num.characters.dropLast())
-        if num.characters.last == "." {
-            num = String(num.characters.dropLast(2))
-        }
         
         if(num.characters.count == 0) {
-            num = "0.0"
+            num = "0"
+            displayValue = 0
         }
-        displayValue = (NSNumberFormatter().numberFromString(num)?.doubleValue)!
+        display.text = num
         
     }
     
@@ -67,6 +64,7 @@ class ViewController: UIViewController {
             enter()
         }
         
+        // adding op to the history viewtext
         historyView.text = "\(historyView.text!) (\(operation))"
 
         switch operation{
@@ -92,6 +90,7 @@ class ViewController: UIViewController {
         if operandStack.count >= 2{
             displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
             enter()
+            enterOp()
         }
     }
     
@@ -105,7 +104,7 @@ class ViewController: UIViewController {
     @IBAction func clearButton(sender: UIButton) {
         operandStack.removeAll()
         displayValue = 0
-        historyView.text = "= "
+        historyView.text = "="
         
     }
     
@@ -114,18 +113,28 @@ class ViewController: UIViewController {
     
     @IBAction func enter() {
         userInTheMiddleOfTypingANumber = false
-        operandStack.append(displayValue)
-        print(displayValue)
-        historyView.text = "\(historyView.text!) \(displayValue)"
-
+        if let value = displayValue {
+            operandStack.append(value)
+            historyView.text = "\(historyView.text!) \(value)"
+        }
+       
     }
     
-    var displayValue:Double {
+    func enterOp(){
+        display.text = "= \(display.text!)"
+    }
+    
+    var displayValue:Double? {
         get{
-            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue
+            //nil if the contents of display.text cannot be interpreted as a Double
+            if let num = NSNumberFormatter().numberFromString(display.text!) {
+                return num.doubleValue
+            } else {
+                return nil
+            }
         }
         set{
-            display.text = "\(newValue)"
+            display.text = "\(newValue!)"
             userInTheMiddleOfTypingANumber = false
         }
     }
