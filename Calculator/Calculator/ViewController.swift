@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var display: UILabel!
     
     var userInTheMiddleOfTypingANumber = false
+    var brain = CalculatorBrain()
     
     @IBOutlet weak var historyView: UILabel!
     
@@ -59,31 +60,19 @@ class ViewController: UIViewController {
     
     
     @IBAction func operate(sender: UIButton) {
-        let operation = sender.currentTitle!
+        
         if userInTheMiddleOfTypingANumber{
             enter()
         }
-        
-        // adding op to the history viewtext
-        historyView.text = "\(historyView.text!) (\(operation))"
+        if let operation = sender.currentTitle{
+            historyView.text = "\(historyView.text!) (\(operation))"
 
-        switch operation{
-            // using closures 
-        case"+": performOperation { $0 + $1 }
-        case"−": performOperation { $1 - $0 }
-        case"÷": performOperation { $1 / $0 }
-        case"×": performOperation { $0 * $1 }
-        case"%": performOperation { $1 % $0 }
-        case"√": performOp { sqrt($0) }
-        case"sin": performOp { sin($0) }
-        case"cos": performOp { cos($0) }
-        case"tan": performOp { tan($0) }
-        case"+/-":performOp { -$0 }
-        case"x²": performOp { $0 * $0 }
-
-        default: break
             
         }
+        // adding op to the history viewtext
+
+            
+        
     }
     
     func performOperation(operation: (Double, Double) -> Double){
@@ -102,7 +91,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func clearButton(sender: UIButton) {
-        operandStack.removeAll()
         displayValue = 0
         historyView.text = "="
         
@@ -114,7 +102,7 @@ class ViewController: UIViewController {
     @IBAction func enter() {
         userInTheMiddleOfTypingANumber = false
         if let value = displayValue {
-            operandStack.append(value)
+            brain.pushOperand(value)
             historyView.text = "\(historyView.text!) \(value)"
         }
        
