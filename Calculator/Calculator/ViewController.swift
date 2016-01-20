@@ -65,29 +65,15 @@ class ViewController: UIViewController {
             enter()
         }
         if let operation = sender.currentTitle{
-            historyView.text = "\(historyView.text!) (\(operation))"
-
+            if let result = brain.performOperation(operation) {
+                displayValue = result
+            }else {
+                displayValue = nil
+            }
             
         }
         // adding op to the history viewtext
-
             
-        
-    }
-    
-    func performOperation(operation: (Double, Double) -> Double){
-        if operandStack.count >= 2{
-            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
-            enter()
-            enterOp()
-        }
-    }
-    
-    func performOp(op: Double ->Double){
-        if operandStack.count >= 1{
-            displayValue = op(operandStack.removeLast())
-            enter()
-        }
     }
     
     @IBAction func clearButton(sender: UIButton) {
@@ -102,8 +88,11 @@ class ViewController: UIViewController {
     @IBAction func enter() {
         userInTheMiddleOfTypingANumber = false
         if let value = displayValue {
-            brain.pushOperand(value)
-            historyView.text = "\(historyView.text!) \(value)"
+            if let results = brain.pushOperand(value){
+                displayValue = results
+            }else{
+                displayValue = nil
+            }
         }
        
     }
@@ -122,8 +111,13 @@ class ViewController: UIViewController {
             }
         }
         set{
-            display.text = "\(newValue!)"
+            if let value = newValue{
+                display.text = "\(value)"
+            }else{
+                display.text = "error: nil value"
+            }
             userInTheMiddleOfTypingANumber = false
+
         }
     }
 
