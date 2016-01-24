@@ -225,7 +225,7 @@
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="appendDigit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="i1Y-d6-2mQ"/>
+                                                            <action selector="operate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CVN-d8-zMV"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="57N-CB-Y6j">

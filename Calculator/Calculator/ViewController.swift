@@ -13,13 +13,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var display: UILabel!
     
     var userInTheMiddleOfTypingANumber = false
-    var brain = CalculatorBrain()
+    lazy var brain = CalculatorBrain()
     
     @IBOutlet weak var historyView: UILabel!
     
    
     @IBAction func appendDigit(sender: UIButton) {
-        var digit = sender.currentTitle!
+        let digit = sender.currentTitle!
         
         // to check if the dot had been used before in the entered number.
         if digit == "." {
@@ -28,12 +28,7 @@ class ViewController: UIViewController {
                 return
             }
         }
-        // here we add pie as predefined value to the view.
-        if digit == "π" {
-            digit = "\(M_1_PI)"
-            enter()
-        }
-        
+
         
         if userInTheMiddleOfTypingANumber {
             display.text = display.text! + digit

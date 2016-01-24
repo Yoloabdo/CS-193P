@@ -15,6 +15,7 @@ class CalculatorBrain {
         case operand(Double)
         case unaryOperation(String, (Double) ->Double)
         case binaryOperation(String, (Double, Double) ->Double)
+        case constantValue(String, Double)
         
         var description: String {
             get{
@@ -24,6 +25,8 @@ class CalculatorBrain {
                 case .unaryOperation(let symbol, _):
                     return "\(symbol)"
                 case .binaryOperation(let symbol, _):
+                    return "\(symbol)"
+                case .constantValue(let symbol, _):
                     return "\(symbol)"
                 }
             }
@@ -46,6 +49,7 @@ class CalculatorBrain {
         knownOps["tan"] = Op.unaryOperation("tan", tan)
         knownOps["+/-"] = Op.unaryOperation("+/-") { -$0 }
         knownOps["x²"] = Op.unaryOperation("x²") { $0 * $0 }
+        knownOps["π"] = Op.constantValue("π", M_1_PI)
         
     }
     private func evaluate(ops: [Op]) -> (result: Double?, remainingOps: [Op]){
@@ -56,6 +60,8 @@ class CalculatorBrain {
             
             switch op {
             case .operand(let operand):
+                return (operand, remainingOps)
+            case .constantValue(_, let operand):
                 return (operand, remainingOps)
             case .unaryOperation(_, let operation):
                 let operandEvaluation = evaluate(remainingOps)
