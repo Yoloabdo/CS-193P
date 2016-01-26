@@ -13,21 +13,22 @@ class CalculatorBrain {
     
     private enum Op: CustomStringConvertible{
         case operand(Double)
+        case constantValue(String, Double)
         case unaryOperation(String, (Double) ->Double)
         case binaryOperation(String, (Double, Double) ->Double)
-        case constantValue(String, Double)
         
         var description: String {
             get{
                 switch self {
                 case .operand(let operand):
                     return "\(operand)"
+                case .constantValue(let symbol, _):
+                    return "\(symbol)"
                 case .unaryOperation(let symbol, _):
                     return "\(symbol)"
                 case .binaryOperation(let symbol, _):
                     return "\(symbol)"
-                case .constantValue(let symbol, _):
-                    return "\(symbol)"
+                
                 }
             }
         }
@@ -37,19 +38,44 @@ class CalculatorBrain {
     
     private var knownOps = Dictionary<String, Op>()
     
+    var properities: AnyObject {
+        set{
+            if let opSymbols = newValue as? Array<String> {
+                var newOpStack = [Op]()
+                for opSymbol in opSymbols {
+                    if let op = knownOps[opSymbol]{
+                        newOpStack.append(op)
+                    }else if let operand = Double(opSymbol){
+                        newOpStack.append(.operand(operand))
+                    }
+                }
+                opStack = newOpStack
+
+            }
+            
+        }
+        get{
+            return opStack.map { $0.description }
+        }
+    }
+    
     init(){
-        knownOps["+"] = Op.binaryOperation("+", +)
-        knownOps["−"] = Op.binaryOperation("−") { $1 - $0}
-        knownOps["×"] = Op.binaryOperation("×", *)
-        knownOps["%"] = Op.binaryOperation("%") { $1 % $0}
-        knownOps["÷"] = Op.binaryOperation("÷") { $1 / $0}
-        knownOps["√"] = Op.unaryOperation("√", sqrt)
-        knownOps["sin"] = Op.unaryOperation("sin", sin)
-        knownOps["cos"] = Op.unaryOperation("cos", cos)
-        knownOps["tan"] = Op.unaryOperation("tan", tan)
-        knownOps["+/-"] = Op.unaryOperation("+/-") { -$0 }
-        knownOps["x²"] = Op.unaryOperation("x²") { $0 * $0 }
-        knownOps["π"] = Op.constantValue("π", M_1_PI)
+        func learnOps(op: Op){
+            knownOps[op.description] = op
+        }
+        
+        learnOps(Op.constantValue("π", M_1_PI))
+        learnOps(Op.binaryOperation("+", +))
+        learnOps(Op.binaryOperation("−") { $1 - $0})
+        learnOps(Op.binaryOperation("×", *))
+        learnOps(Op.binaryOperation("%") { $1 % $0})
+        learnOps(Op.binaryOperation("÷") { $1 / $0})
+        learnOps(Op.unaryOperation("√", sqrt))
+        learnOps(Op.unaryOperation("sin", sin))
+        learnOps(Op.unaryOperation("cos", cos))
+        learnOps(Op.unaryOperation("tan", tan))
+        learnOps(Op.unaryOperation("+/-") { -$0 })
+        learnOps(Op.unaryOperation("x²") { $0 * $0 })
         
     }
     private func evaluate(ops: [Op]) -> (result: Double?, remainingOps: [Op]){

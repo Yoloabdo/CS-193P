@@ -98,9 +98,9 @@ class ViewController: UIViewController {
     
     var displayValue:Double? {
         get{
-            //nil if the contents of display.text cannot be interpreted as a Double
-            if let num = NSNumberFormatter().numberFromString(display.text!) {
-                return num.doubleValue
+            //nil if the contents of display.text cannot be interpreted as a Double using swift 2.0 double(string)
+            if let num = Double(display.text!){
+                return num
             } else {
                 return nil
             }
