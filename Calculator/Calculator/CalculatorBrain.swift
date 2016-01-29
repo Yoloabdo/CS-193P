@@ -9,8 +9,13 @@
 import Foundation
 
 
+/// #### Calcaulator class
+/// - simply doing all the work
+/// - class uses recursive method to get operands from a stack
 class CalculatorBrain {
     
+    /// custom type of enum to save the operation.
+    /// this type is decribable.
     private enum Op: CustomStringConvertible{
         case operand(Double)
         case constantValue(String, Double)
@@ -34,11 +39,17 @@ class CalculatorBrain {
         }
     }
     
+    // contains all the operation entered through the user to calcluator.
     private var opStack = [Op]()
     
+    // knownOps contains all known operations to the calculator.
     private var knownOps = Dictionary<String, Op>()
     
-    var properities: AnyObject {
+    /// A properity gets the program to public.
+    /// caller won't have any idea what's it.
+    /// this's good if we want to save the information as cookie or something alike.
+    /// it's a ProperityList.
+    var program: AnyObject {
         set{
             if let opSymbols = newValue as? Array<String> {
                 var newOpStack = [Op]()
@@ -60,6 +71,8 @@ class CalculatorBrain {
     }
     
     init(){
+        /// this function is just there to not type the string of the function twice.
+        /// - Parameter op: takes the operation type declarition in order to iniate the ops Stack.
         func learnOps(op: Op){
             knownOps[op.description] = op
         }
@@ -78,6 +91,11 @@ class CalculatorBrain {
         learnOps(Op.unaryOperation("x²") { $0 * $0 })
         
     }
+    
+    /// Evaluation function. It works recursivly through the array.
+    /// - Parameter ops: Array of Op enum special type defined earlier.
+    /// - Returns: a list contains result and the rest of the input array.
+    ///
     private func evaluate(ops: [Op]) -> (result: Double?, remainingOps: [Op]){
 
         if !ops.isEmpty {
@@ -108,19 +126,27 @@ class CalculatorBrain {
         return (nil, ops)
         
     }
-    
+    /// Evalute second function, calls insider function with same name in order to get the results.
+    /// - Returns: nil or Double, depends if there's error in calculating what's inside the Op stack.
     func evaluate() -> Double? {
         let (result, remainder) = evaluate(opStack)
         print("\(opStack)  = \(result) with \(remainder) leftover")
         
         return result
     }
-
+    
+    
+    /// Pushing operand inside the OpStack and then calls evaluate function.
+    /// - Parameter operand: takes an operand into the stack.
+    /// - Returns: The result from the evaluation.
     func pushOperand(operand: Double) -> Double? {
         opStack.append(Op.operand(operand))
         return evaluate()
     }
     
+    /// Pushing operation into the OpStack
+    /// - Parameter symbol: takes any operation that to be applied, check if it's known to our knownOps Stack.
+    /// - Returns: evaluate, as usual optional!
     func performOperation(symbol: String) -> Double? {
         if let operation = knownOps[symbol] {
             opStack.append(operation)
