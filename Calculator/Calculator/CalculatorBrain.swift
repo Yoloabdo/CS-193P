@@ -18,6 +18,7 @@ class CalculatorBrain {
     /// this type is decribable.
     private enum Op: CustomStringConvertible{
         case operand(Double)
+        case variable(String)
         case constantValue(String, Double)
         case unaryOperation(String, (Double) ->Double)
         case binaryOperation(String, (Double, Double) ->Double)
@@ -27,6 +28,8 @@ class CalculatorBrain {
                 switch self {
                 case .operand(let operand):
                     return "\(operand)"
+                case .variable(let symbol):
+                    return "\(symbol)"
                 case .constantValue(let symbol, _):
                     return "\(symbol)"
                 case .unaryOperation(let symbol, _):
@@ -44,6 +47,9 @@ class CalculatorBrain {
     
     // knownOps contains all known operations to the calculator.
     private var knownOps = Dictionary<String, Op>()
+    
+    // saving variables into the stack
+    var variableValues = [String: Double]()
     
     /// A properity gets the program to public.
     /// caller won't have any idea what's it.
@@ -105,6 +111,10 @@ class CalculatorBrain {
             switch op {
             case .operand(let operand):
                 return (operand, remainingOps)
+            case .variable(let symbol):
+                if let value = variableValues[symbol]{
+                    return (value, remainingOps)
+                }
             case .constantValue(_, let operand):
                 return (operand, remainingOps)
             case .unaryOperation(_, let operation):
@@ -141,6 +151,16 @@ class CalculatorBrain {
     /// - Returns: The result from the evaluation.
     func pushOperand(operand: Double) -> Double? {
         opStack.append(Op.operand(operand))
+        return evaluate()
+    }
+    
+    /// Pushing operation into the OpStack
+    /// - Parameter symbol: takes variable such as X, Y, check if it's known to our variableValues Dic.
+    /// - Returns: evaluate, as usual optional!
+    func pushOperand(symbol: String) -> Double? {
+        opStack.append(Op.variable(symbol))
+        
+        
         return evaluate()
     }
     
