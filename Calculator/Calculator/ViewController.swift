@@ -42,7 +42,6 @@ class ViewController: UIViewController {
     
     @IBAction func backSpace(sender: UIButton) {
         if !deleteBackSpace() {
-            userInTheMiddleOfTypingANumber = false
             brain.popOperand()
             updateDisplay()
         }
@@ -51,10 +50,17 @@ class ViewController: UIViewController {
     /// backspace deletes the number that user just entered, it handles it as text
     /// just to simplfy editing double number and just do it as a string only problem.
     func deleteBackSpace() -> Bool{
-        if let value = display.text {
+        if let value = display.text where value != " " {
             if value.characters.count > 0 {
                 let deletedChar = value.characters.dropLast()
                 display.text = String(deletedChar)
+                
+                // adding " " to fix the autoshrink issue
+                if deletedChar.count <= 0{
+                    display.text = " "
+                    userInTheMiddleOfTypingANumber = false
+                }
+                
                 return true
             }
             
@@ -82,7 +88,9 @@ class ViewController: UIViewController {
     
     @IBAction func enter() {
         userInTheMiddleOfTypingANumber = false
-        brain.pushOperand(displayValue!)
+        if let value = displayValue{
+            brain.pushOperand(value)
+        }
         updateDisplay()
     }
     
