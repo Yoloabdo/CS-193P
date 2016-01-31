@@ -41,61 +41,54 @@ class ViewController: UIViewController {
     }
     
     @IBAction func backSpace(sender: UIButton) {
-        // backspace deletes the number that user just entered, it handles it as text
-        // just to simplfy editing double number and just do it as a string only problem.
-        
-        var num = "\(display.text!)"
-        num = String(num.characters.dropLast())
-        
-        if(num.characters.count == 0) {
-            num = "0"
-            displayValue = 0
+        if !deleteBackSpace() {
+            userInTheMiddleOfTypingANumber = false
+            brain.popOperand()
+            updateDisplay()
         }
-        display.text = num
         
     }
-    
+    /// backspace deletes the number that user just entered, it handles it as text
+    /// just to simplfy editing double number and just do it as a string only problem.
+    func deleteBackSpace() -> Bool{
+        if let value = display.text {
+            if value.characters.count > 0 {
+                let deletedChar = value.characters.dropLast()
+                display.text = String(deletedChar)
+                return true
+            }
+            
+        }
+        return false
+    }
     
     @IBAction func operate(sender: UIButton) {
         
         if userInTheMiddleOfTypingANumber{
             enter()
         }
-        if let operation = sender.currentTitle{
-            if let result = brain.performOperation(operation) {
-                displayValue = result
-            }else {
-                displayValue = nil
-            }
-            
-        }
-        // adding op to the history viewtext
+        brain.performOperation(sender.currentTitle!)
+        updateDisplay()
             
     }
     
     @IBAction func clearButton(sender: UIButton) {
         displayValue = 0
         historyView.text = "="
-        
+        brain = CalculatorBrain()
     }
     
-    var operandStack = Array<Double>()
     
     
     @IBAction func enter() {
         userInTheMiddleOfTypingANumber = false
-        if let value = displayValue {
-            if let results = brain.pushOperand(value){
-                displayValue = results
-            }else{
-                displayValue = nil
-            }
-        }
-       
+        brain.pushOperand(displayValue!)
+        updateDisplay()
     }
     
-    func enterOp(){
-        display.text = "= \(display.text!)"
+    func updateDisplay(){
+        displayValue = brain.evaluate()
+        historyView.text = brain.discribtion + " ="
     }
     
     var displayValue:Double? {

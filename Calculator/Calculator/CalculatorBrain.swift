@@ -40,6 +40,24 @@ class CalculatorBrain {
                 }
             }
         }
+        
+        var precedence: Int {
+            get{
+                switch self{
+                case .binaryOperation(let symbol, _):
+                    switch symbol{
+                        case "×", "%", "÷":
+                        return 2
+                        case "+", "-":
+                        return 1
+                    default: return Int.max
+                    }
+                default:
+                    return Int.max
+                }
+
+            }
+        }
     }
     
     // contains all the operation entered through the user to calcluator.
@@ -139,11 +157,71 @@ class CalculatorBrain {
     /// Evalute second function, calls insider function with same name in order to get the results.
     /// - Returns: nil or Double, depends if there's error in calculating what's inside the Op stack.
     func evaluate() -> Double? {
-        let (result, remainder) = evaluate(opStack)
-        print("\(opStack)  = \(result) with \(remainder) leftover")
+        let (result, _) = evaluate(opStack)
+//        print("\(opStack)  = \(result) with \(remainder) leftover")
         
         return result
     }
+    
+    
+    /// description
+    private func description (ops: [Op]) -> (result: String?, remainingOps: [Op], precedence: Int?){
+    
+        if !ops.isEmpty{
+            
+            var remainingOps = ops
+            let op = remainingOps.removeLast()
+            
+            switch op {
+            case.operand(let operand):
+                return (String(format: "%g", operand), remainingOps, op.precedence)
+            case .variable(let symbol):
+                return ("\(symbol)", remainingOps, op.precedence)
+            case .constantValue(let symbol, _):
+                return ("\(symbol)", remainingOps, op.precedence)
+            case .unaryOperation(let symbol, _):
+                let operandEvaluation = description(remainingOps)
+                if var operand = operandEvaluation.result {
+                    if op.precedence > operandEvaluation.precedence {
+                        operand = "(\(operand))"
+                    }
+                    return ("\(symbol)\(operand)", operandEvaluation.remainingOps, op.precedence)
+                }
+            case .binaryOperation(let symbol, _):
+                let op1Evaluation = description(remainingOps)
+                if var operand1 = op1Evaluation.result {
+                    if op.precedence > op1Evaluation.precedence {
+                        operand1 = "(\(operand1))"
+                    }
+                    let op2Evaluation = description(op1Evaluation.remainingOps)
+                    if var operand2 = op2Evaluation.result {
+                        if op.precedence > op2Evaluation.precedence {
+                            operand2 = "(\(operand2))"
+                        }
+                        return ("\(operand2) \(symbol) \(operand1)",
+                            op2Evaluation.remainingOps, op.precedence)
+                    }
+                }
+            }
+        }
+    
+        return("?", ops, Int.max)
+    }
+    
+    var discribtion: String {
+        get{
+            var (result, ops) = ("", opStack)
+            repeat {
+                var current: String?
+                (current, ops, _) = description(ops)
+                result = result == "" ? current! : "\(current!), \(result)"
+            } while ops.count > 0
+            
+            return result
+        
+        }
+    }
+    
     
     
     /// Pushing operand inside the OpStack and then calls evaluate function.
@@ -171,6 +249,11 @@ class CalculatorBrain {
         if let operation = knownOps[symbol] {
             opStack.append(operation)
         }
+        return evaluate()
+    }
+    
+    func popOperand()->Double? {
+        opStack.popLast()
         return evaluate()
     }
 }
