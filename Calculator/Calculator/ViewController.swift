@@ -42,8 +42,10 @@ class ViewController: UIViewController {
     
     @IBAction func backSpace(sender: UIButton) {
         if !deleteBackSpace() {
-            brain.popOperand()
-            updateDisplay()
+            if !brain.popOperand(){
+                displayValue = 0
+            }
+            historyView.text = brain.discribtion
         }
         
     }

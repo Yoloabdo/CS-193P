@@ -164,7 +164,9 @@ class CalculatorBrain {
     }
     
     
-    /// description
+    /// description of what's inside the stack without evaluation, works recursively as evaluate function.
+    /// - Parameter ops : operation stack
+    /// - returns: results as a string, plus remaining operations and presedence of the rest.
     private func description (ops: [Op]) -> (result: String?, remainingOps: [Op], precedence: Int?){
     
         if !ops.isEmpty{
@@ -208,12 +210,14 @@ class CalculatorBrain {
         return("?", ops, Int.max)
     }
     
+    /// calling description function through this var.
     var discribtion: String {
         get{
             var (result, ops) = ("", opStack)
             repeat {
                 var current: String?
                 (current, ops, _) = description(ops)
+                // result adds up if no operations added to the stack and sepreated by comma ,.
                 result = result == "" ? current! : "\(current!), \(result)"
             } while ops.count > 0
             
@@ -252,8 +256,11 @@ class CalculatorBrain {
         return evaluate()
     }
     
-    func popOperand()->Double? {
-        opStack.popLast()
-        return evaluate()
+    func popOperand() -> Bool{
+        if !opStack.isEmpty{
+            opStack.popLast()
+            return true
+        }
+        return false
     }
 }
