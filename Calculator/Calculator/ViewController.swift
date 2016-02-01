@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     @IBAction func appendDigit(sender: UIButton) {
         let digit = sender.currentTitle!
         
-        // to check if the dot had been used before in the entered number.
+        // allow dot to be entered just once.
         if digit == "." {
             let text = display.text!
             if (text.characters.contains(".")){
