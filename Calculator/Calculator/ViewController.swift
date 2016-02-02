@@ -69,6 +69,13 @@ class ViewController: UIViewController {
         }
         return false
     }
+    @IBAction func varValueinsertion(sender: UIButton) {
+        if userInTheMiddleOfTypingANumber {
+            enter()
+        }
+        brain.addOperandValueM()
+        updateDisplay()
+    }
     
     @IBAction func operate(sender: UIButton) {
         

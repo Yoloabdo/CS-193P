@@ -101,7 +101,7 @@ class CalculatorBrain {
             knownOps[op.description] = op
         }
         
-        learnOps(Op.constantValue("π", M_1_PI))
+        learnOps(Op.constantValue("π", M_PI))
         learnOps(Op.binaryOperation("+", +))
         learnOps(Op.binaryOperation("−") { $1 - $0})
         learnOps(Op.binaryOperation("×", *))
@@ -113,6 +113,7 @@ class CalculatorBrain {
         learnOps(Op.unaryOperation("tan", tan))
         learnOps(Op.unaryOperation("+/-") { -$0 })
         learnOps(Op.unaryOperation("x²") { $0 * $0 })
+        learnOps(Op.variable("M"))
         
     }
     
@@ -226,6 +227,28 @@ class CalculatorBrain {
         }
     }
     
+    /// private method to get the last operand in the stack into vars dic
+    /// i guess there's simple ways, but this one looks appealing now
+    private func addVarValue(ops: [Op]){
+        if !ops.isEmpty{
+            
+            var remainingOps = ops
+            let op = remainingOps.removeLast()
+            
+            switch op {
+            case.operand(let operand):
+                variableValues["M"] = operand
+            default:
+                break
+            }
+        }
+    }
+    
+    /// public version of previous func.
+    func addOperandValueM() -> Bool{
+        addVarValue(opStack)
+        return popOperand()
+    }
     
     
     /// Pushing operand inside the OpStack and then calls evaluate function.
