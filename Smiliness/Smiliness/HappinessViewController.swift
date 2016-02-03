@@ -45,6 +45,21 @@ class HappinessViewController: UIViewController, faceViewDataSource {
             break
         }
     }
+    @IBAction func quickSmile(sender: UITapGestureRecognizer) {
+        switch sender.state{
+        case .Ended:
+            fallthrough
+        case .Changed:
+            if happiness < 50{
+                happiness = 100
+            }else{
+                happiness = 0
+            }
+        default:
+            break
+        }
+        
+    }
     
     func smilinessForFaceView(sender: FaceView) -> Double? {
         return Double(happiness - 50) / 50

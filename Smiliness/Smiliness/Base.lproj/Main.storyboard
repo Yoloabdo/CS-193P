@@ -24,6 +24,7 @@
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="qXP-kB-tnt" appends="YES" id="r9J-yu-taq"/>
+                                    <outletCollection property="gestureRecognizers" destination="74y-cD-0zQ" appends="YES" id="OOp-GP-AE6"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -45,6 +46,11 @@
                         <action selector="changeHappiness:" destination="BYZ-38-t0r" id="tu2-nT-S5M"/>
                     </connections>
                 </panGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="74y-cD-0zQ">
+                    <connections>
+                        <action selector="quickSmile:" destination="BYZ-38-t0r" id="wD7-UO-4bk"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
         </scene>
     </scenes>
