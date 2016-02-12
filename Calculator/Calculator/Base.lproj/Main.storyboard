@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -107,6 +107,24 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
+                                                <variation key="default">
+                                                    <mask key="subviews">
+                                                        <exclude reference="v9e-p0-I9b"/>
+                                                        <exclude reference="nqM-X9-lEF"/>
+                                                    </mask>
+                                                </variation>
+                                                <variation key="heightClass=compact">
+                                                    <mask key="subviews">
+                                                        <include reference="v9e-p0-I9b"/>
+                                                        <include reference="nqM-X9-lEF"/>
+                                                    </mask>
+                                                </variation>
+                                                <variation key="heightClass=regular-widthClass=compact">
+                                                    <mask key="subviews">
+                                                        <exclude reference="v9e-p0-I9b"/>
+                                                        <exclude reference="nqM-X9-lEF"/>
+                                                    </mask>
+                                                </variation>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="76X-1d-XUp">
                                                 <rect key="frame" x="0.0" y="84" width="600" height="84"/>
@@ -179,6 +197,24 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
+                                                <variation key="default">
+                                                    <mask key="subviews">
+                                                        <exclude reference="Vlc-EU-5u6"/>
+                                                        <exclude reference="3Fr-du-JW7"/>
+                                                    </mask>
+                                                </variation>
+                                                <variation key="heightClass=compact">
+                                                    <mask key="subviews">
+                                                        <include reference="Vlc-EU-5u6"/>
+                                                        <include reference="3Fr-du-JW7"/>
+                                                    </mask>
+                                                </variation>
+                                                <variation key="heightClass=regular-widthClass=compact">
+                                                    <mask key="subviews">
+                                                        <exclude reference="Vlc-EU-5u6"/>
+                                                        <exclude reference="3Fr-du-JW7"/>
+                                                    </mask>
+                                                </variation>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="kgT-YP-RL1">
                                                 <rect key="frame" x="0.0" y="168" width="600" height="84"/>
@@ -247,6 +283,24 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
+                                                <variation key="default">
+                                                    <mask key="subviews">
+                                                        <exclude reference="v1d-lT-51T"/>
+                                                        <exclude reference="asu-ue-d8z"/>
+                                                    </mask>
+                                                </variation>
+                                                <variation key="heightClass=compact">
+                                                    <mask key="subviews">
+                                                        <include reference="v1d-lT-51T"/>
+                                                        <include reference="asu-ue-d8z"/>
+                                                    </mask>
+                                                </variation>
+                                                <variation key="heightClass=regular-widthClass=compact">
+                                                    <mask key="subviews">
+                                                        <exclude reference="v1d-lT-51T"/>
+                                                        <exclude reference="asu-ue-d8z"/>
+                                                    </mask>
+                                                </variation>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="h9v-40-75L">
                                                 <rect key="frame" x="0.0" y="252" width="600" height="84"/>
@@ -315,6 +369,24 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
+                                                <variation key="default">
+                                                    <mask key="subviews">
+                                                        <exclude reference="9JX-ar-RB3"/>
+                                                        <exclude reference="FUy-QU-JZ4"/>
+                                                    </mask>
+                                                </variation>
+                                                <variation key="heightClass=compact">
+                                                    <mask key="subviews">
+                                                        <include reference="9JX-ar-RB3"/>
+                                                        <include reference="FUy-QU-JZ4"/>
+                                                    </mask>
+                                                </variation>
+                                                <variation key="heightClass=regular-widthClass=compact">
+                                                    <mask key="subviews">
+                                                        <exclude reference="9JX-ar-RB3"/>
+                                                        <exclude reference="FUy-QU-JZ4"/>
+                                                    </mask>
+                                                </variation>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Ja7-2m-UQH">
                                                 <rect key="frame" x="0.0" y="335" width="600" height="84"/>
@@ -382,6 +454,24 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
+                                                <variation key="default">
+                                                    <mask key="subviews">
+                                                        <exclude reference="M6U-Na-JBx"/>
+                                                        <exclude reference="vj6-DR-cqF"/>
+                                                    </mask>
+                                                </variation>
+                                                <variation key="heightClass=compact">
+                                                    <mask key="subviews">
+                                                        <include reference="M6U-Na-JBx"/>
+                                                        <include reference="vj6-DR-cqF"/>
+                                                    </mask>
+                                                </variation>
+                                                <variation key="heightClass=regular-widthClass=compact">
+                                                    <mask key="subviews">
+                                                        <exclude reference="M6U-Na-JBx"/>
+                                                        <exclude reference="vj6-DR-cqF"/>
+                                                    </mask>
+                                                </variation>
                                             </stackView>
                                         </subviews>
                                     </stackView>

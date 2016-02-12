@@ -21,7 +21,19 @@
                             <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Ks6-kN-rWF" customClass="FaceView" customModule="Smiliness" customModuleProvider="target">
                                 <rect key="frame" x="20" y="20" width="560" height="580"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="1" green="0.34310276049999999" blue="0.28908229680000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="scale">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" red="0.97780905438659627" green="0.22629705225403174" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="qXP-kB-tnt" appends="YES" id="r9J-yu-taq"/>
                                     <outletCollection property="gestureRecognizers" destination="74y-cD-0zQ" appends="YES" id="OOp-GP-AE6"/>
@@ -52,6 +64,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="-415" y="834"/>
         </scene>
     </scenes>
 </document>

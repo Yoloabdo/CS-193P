@@ -25,7 +25,7 @@ class HappinessViewController: UIViewController, faceViewDataSource {
     }
     
     func updateUI(){
-        faceView.setNeedsDisplay()
+        faceView?.setNeedsDisplay()
     }
     struct Constants {
         static let HappinessGestureScale: CGFloat = 4.0
