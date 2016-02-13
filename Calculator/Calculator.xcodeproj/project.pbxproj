@@ -13,6 +13,7 @@
 		50D0F3B41C3B00C900850F1F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50D0F3B21C3B00C900850F1F /* Main.storyboard */; };
 		50D0F3B61C3B00C900850F1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50D0F3B51C3B00C900850F1F /* Assets.xcassets */; };
 		50D0F3B91C3B00C900850F1F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50D0F3B71C3B00C900850F1F /* LaunchScreen.storyboard */; };
+		50DBD1511C6FA8EA006773B6 /* AxesDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DBD1501C6FA8EA006773B6 /* AxesDrawer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		50D0F3B51C3B00C900850F1F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50D0F3B81C3B00C900850F1F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		50D0F3BA1C3B00C900850F1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50DBD1501C6FA8EA006773B6 /* AxesDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxesDrawer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				50D0F3AE1C3B00C900850F1F /* AppDelegate.swift */,
 				50D0F3B01C3B00C900850F1F /* CalculatorViewController.swift */,
+				50DBD1501C6FA8EA006773B6 /* AxesDrawer.swift */,
 				50D0F3B21C3B00C900850F1F /* Main.storyboard */,
 				50D0F3B51C3B00C900850F1F /* Assets.xcassets */,
 				50D0F3B71C3B00C900850F1F /* LaunchScreen.storyboard */,
@@ -140,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50BFBEBA1C4D70D100E1CEE8 /* CalculatorBrain.swift in Sources */,
+				50DBD1511C6FA8EA006773B6 /* AxesDrawer.swift in Sources */,
 				50D0F3B11C3B00C900850F1F /* CalculatorViewController.swift in Sources */,
 				50D0F3AF1C3B00C900850F1F /* AppDelegate.swift in Sources */,
 			);
