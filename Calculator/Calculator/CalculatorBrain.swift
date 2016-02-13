@@ -20,8 +20,8 @@ class CalculatorBrain {
         case operand(Double)
         case variable(String)
         case constantValue(String, Double)
-        case unaryOperation(String, (Double) ->Double)
-        case binaryOperation(String, (Double, Double) ->Double)
+        case unaryOperation(String, (Double) ->Double, (Double -> String?)?)
+        case binaryOperation(String, (Double, Double) ->Double, ((Double) -> String?)?)
         
         var description: String {
             get{
@@ -32,9 +32,9 @@ class CalculatorBrain {
                     return "\(symbol)"
                 case .constantValue(let symbol, _):
                     return "\(symbol)"
-                case .unaryOperation(let symbol, _):
+                case .unaryOperation(let symbol, _, _):
                     return "\(symbol)"
-                case .binaryOperation(let symbol, _):
+                case .binaryOperation(let symbol, _, _):
                     return "\(symbol)"
                 
                 }
@@ -44,7 +44,7 @@ class CalculatorBrain {
         var precedence: Int {
             get{
                 switch self{
-                case .binaryOperation(let symbol, _):
+                case .binaryOperation(let symbol, _, _):
                     switch symbol{
                         case "×", "%", "÷":
                         return 2
@@ -68,6 +68,11 @@ class CalculatorBrain {
     
     // saving variables into the stack
     var variableValues = [String: Double]()
+    
+    
+    /// String to save error if there's one.
+    private var error: String?
+
     
     /// A properity gets the program to public.
     /// caller won't have any idea what's it.
@@ -102,17 +107,19 @@ class CalculatorBrain {
         }
         
         learnOps(Op.constantValue("π", M_PI))
-        learnOps(Op.binaryOperation("+", +))
-        learnOps(Op.binaryOperation("−") { $1 - $0})
-        learnOps(Op.binaryOperation("×", *))
-        learnOps(Op.binaryOperation("%") { $1 % $0})
-        learnOps(Op.binaryOperation("÷") { $1 / $0})
-        learnOps(Op.unaryOperation("√", sqrt))
-        learnOps(Op.unaryOperation("sin", sin))
-        learnOps(Op.unaryOperation("cos", cos))
-        learnOps(Op.unaryOperation("tan", tan))
-        learnOps(Op.unaryOperation("+/-") { -$0 })
-        learnOps(Op.unaryOperation("x²") { $0 * $0 })
+        learnOps(Op.binaryOperation("+", +, nil))
+        learnOps(Op.binaryOperation("−", { $1 - $0}, nil))
+        learnOps(Op.binaryOperation("×", *, nil))
+        learnOps(Op.binaryOperation("%", { $1 % $0},
+            { $0 == 0.0 ? "Division by zero" : nil }))
+        learnOps(Op.binaryOperation("÷", { $1 / $0},
+            { $0 == 0.0 ? "Division by zero" : nil }))
+        learnOps(Op.unaryOperation("√", sqrt, {$0 < 0 ? "square root zero": nil}))
+        learnOps(Op.unaryOperation("sin", sin, nil))
+        learnOps(Op.unaryOperation("cos", cos, nil))
+        learnOps(Op.unaryOperation("tan", tan, nil))
+        learnOps(Op.unaryOperation("+/-", { -$0 }, nil))
+        learnOps(Op.unaryOperation("x²", { $0 * $0 }, nil))
         learnOps(Op.variable("M"))
         
     }
@@ -120,6 +127,7 @@ class CalculatorBrain {
     /// Evaluation function. It works recursivly through the array.
     /// - Parameter ops: Array of Op enum special type defined earlier.
     /// - Returns: a list contains result and the rest of the input array.
+    /// Error test handling has been added to the function as a closure.
     ///
     private func evaluate(ops: [Op]) -> (result: Double?, remainingOps: [Op]){
 
@@ -134,21 +142,37 @@ class CalculatorBrain {
                 if let value = variableValues[symbol]{
                     return (value, remainingOps)
                 }
+                error = "Variable Not Set"
+                return (nil, remainingOps)
+                
             case .constantValue(_, let operand):
                 return (operand, remainingOps)
-            case .unaryOperation(_, let operation):
+                
+            case .unaryOperation(_, let operation, let errorTest):
                 let operandEvaluation = evaluate(remainingOps)
                 if let operand = operandEvaluation.result {
+                    if let errorMessage = errorTest?(operand) {
+                        error = errorMessage
+                        return (nil, operandEvaluation.remainingOps)
+                    }
                     return (operation(operand), operandEvaluation.remainingOps)
                 }
-            case .binaryOperation(_, let operation):
+                
+            case .binaryOperation(_, let operation, let errorTest):
                 let op1Evaluation = evaluate(remainingOps)
                 if let operand1 = op1Evaluation.result {
+                    if let errorMessage = errorTest?(operand1) {
+                        error = errorMessage
+                        return (nil, op1Evaluation.remainingOps)
+                    }
                     let op2Evaluation = evaluate(op1Evaluation.remainingOps)
                     if let operand2 = op2Evaluation.result {
                         return (operation(operand1, operand2), op2Evaluation.remainingOps)
                     }
                 }
+            }
+            if error == nil {
+                error = "Not Enough Operands"
             }
         }
         
@@ -158,12 +182,21 @@ class CalculatorBrain {
     /// Evalute second function, calls insider function with same name in order to get the results.
     /// - Returns: nil or Double, depends if there's error in calculating what's inside the Op stack.
     func evaluate() -> Double? {
+        error = nil
         let (result, _) = evaluate(opStack)
 //        print("\(opStack)  = \(result) with \(remainder) leftover")
         
         return result
     }
     
+    
+    // evaluateAndReportErrors()
+    func evaluateAndReportErrors() -> AnyObject? {
+        let (result, _) = evaluate(opStack)
+        return result != nil ? result : error
+    }
+    
+
     
     /// description of what's inside the stack without evaluation, works recursively as evaluate function.
     /// - Parameter ops : operation stack
@@ -182,7 +215,7 @@ class CalculatorBrain {
                 return ("\(symbol)", remainingOps, op.precedence)
             case .constantValue(let symbol, _):
                 return ("\(symbol)", remainingOps, op.precedence)
-            case .unaryOperation(let symbol, _):
+            case .unaryOperation(let symbol, _, _):
                 let operandEvaluation = description(remainingOps)
                 if var operand = operandEvaluation.result {
                     if op.precedence > operandEvaluation.precedence {
@@ -190,7 +223,7 @@ class CalculatorBrain {
                     }
                     return ("\(symbol)\(operand)", operandEvaluation.remainingOps, op.precedence)
                 }
-            case .binaryOperation(let symbol, _):
+            case .binaryOperation(let symbol, _, _):
                 let op1Evaluation = description(remainingOps)
                 if var operand1 = op1Evaluation.result {
                     if op.precedence > op1Evaluation.precedence {
@@ -212,7 +245,7 @@ class CalculatorBrain {
     }
     
     /// calling description function through this var.
-    var discribtion: String {
+    var discription: String {
         get{
             var (result, ops) = ("", opStack)
             repeat {

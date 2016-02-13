@@ -10,7 +10,7 @@ import UIKit
 
 
 
-class ViewController: UIViewController {
+class CalculatorViewController: UIViewController {
 
     @IBOutlet weak var display: UILabel!
     
@@ -45,7 +45,7 @@ class ViewController: UIViewController {
             if !brain.popOperand(){
                 displayValue = 0
             }
-            historyView.text = brain.discribtion
+            historyView.text = brain.discription
         }
         
     }
@@ -104,27 +104,35 @@ class ViewController: UIViewController {
     }
     
     func updateDisplay(){
-        displayValue = brain.evaluate()
-        historyView.text = brain.discribtion + " ="
+        if let result = brain.evaluate() {
+            displayValue = result
+        } else {
+            // error?
+            displayValue = nil
+        }
     }
     
     var displayValue:Double? {
         get{
             //nil if the contents of display.text cannot be interpreted as a Double using swift 2.0 double(string)
-            if let num = Double(display.text!){
-                return num
-            } else {
-                return nil
-            }
+            return Double(display.text!) ?? nil
         }
-        set{
-            if let value = newValue{
-                display.text = "\(value)"
-            }else{
-                display.text = "error: nil value"
+        set {
+            
+            if (newValue != nil) {
+                let numberFormatter = NSNumberFormatter()
+                numberFormatter.numberStyle = .DecimalStyle
+                numberFormatter.maximumFractionDigits = 10
+                display.text = numberFormatter.stringFromNumber(newValue!)
+            } else {
+                if let result = brain.evaluateAndReportErrors() as? String {
+                    display.text = result
+                } else {
+                    display.text = " "
+                }
             }
             userInTheMiddleOfTypingANumber = false
-
+            historyView.text = brain.discription != "" ? brain.discription + " =" : ""
         }
     }
 
