@@ -151,6 +151,7 @@ class CalculatorBrain {
             case .unaryOperation(_, let operation, let errorTest):
                 let operandEvaluation = evaluate(remainingOps)
                 if let operand = operandEvaluation.result {
+                    // checking error test closure
                     if let errorMessage = errorTest?(operand) {
                         error = errorMessage
                         return (nil, operandEvaluation.remainingOps)
@@ -161,6 +162,7 @@ class CalculatorBrain {
             case .binaryOperation(_, let operation, let errorTest):
                 let op1Evaluation = evaluate(remainingOps)
                 if let operand1 = op1Evaluation.result {
+                    // checking error test closure
                     if let errorMessage = errorTest?(operand1) {
                         error = errorMessage
                         return (nil, op1Evaluation.remainingOps)

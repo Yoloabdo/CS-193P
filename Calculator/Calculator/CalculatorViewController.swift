@@ -15,7 +15,7 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var display: UILabel!
     
     var userInTheMiddleOfTypingANumber = false
-    lazy var brain = CalculatorBrain()
+    var brain = CalculatorBrain()
     
     @IBOutlet weak var historyView: UILabel!
     
