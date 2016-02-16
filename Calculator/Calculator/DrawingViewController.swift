@@ -8,15 +8,46 @@
 
 import UIKit
 
-class DrawingViewController: UIViewController {
+class DrawingViewController: UIViewController, GraphViewDataSource {
 
     var axesDrawer: AxesDrawer?
     
-    @IBOutlet weak var drawer: UIView!
+  
+    
+    @IBOutlet weak var graphDraw: GraphView!{
+        didSet{
+            graphDraw.dataSource = self
+        }
+    }
+    
 
+    var brain = CalculatorBrain()
+    
+    @IBAction func zoomGraphScale(sender: UIPinchGestureRecognizer) {
+        if sender.state == .Changed{
+            scale *= sender.scale
+            sender.scale = 1
+        }
+
+    }
+    
+    func scaleForGraphView(sender: GraphView) -> CGFloat {
+        return scale
+    }
+    
+    var scale: CGFloat = 50 {
+        didSet{
+            scale = min(max( scale, 0), 100)
+            updateUI()
+        }
+    }
+    
+    func updateUI(){
+        graphDraw?.setNeedsDisplay()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        axesDrawer = AxesDrawer(color: UIColor.blackColor())
         
         // Do any additional setup after loading the view.
     }

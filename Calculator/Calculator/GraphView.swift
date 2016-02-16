@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol GraphViewDataSource:class{
+    func scaleForGraphView(sender: GraphView) -> CGFloat
+}
+
 @IBDesignable
 class GraphView: UIView {
 
@@ -24,6 +28,8 @@ class GraphView: UIView {
             setNeedsDisplay()
         }
     }
+    
+    weak var dataSource: GraphViewDataSource?
     
     
     var origin = CGPoint() {
@@ -54,6 +60,8 @@ class GraphView: UIView {
         if resetOrigins{
             origin = center
         }
+        
+        scale = dataSource?.scaleForGraphView(self) ?? 50
         
         AxesDrawer(color: color, contentScaleFactor: scale).drawAxesInRect(bounds, origin: origin, pointsPerUnit: scale)
         

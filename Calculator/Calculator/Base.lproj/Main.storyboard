@@ -423,37 +423,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jFb-Ix-TTy">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aqq-fi-U6E" customClass="GraphView" customModule="Calculator">
                                 <rect key="frame" x="20" y="64" width="560" height="536"/>
-                                <subviews>
-                                    <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="QLM-7J-53L" customClass="GraphView" customModule="Calculator" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="560" height="536"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="QLM-7J-53L" secondAttribute="trailing" id="9jA-b0-JEE"/>
-                                    <constraint firstAttribute="bottom" secondItem="QLM-7J-53L" secondAttribute="bottom" id="WdU-az-qTp"/>
-                                    <constraint firstItem="QLM-7J-53L" firstAttribute="top" secondItem="jFb-Ix-TTy" secondAttribute="top" id="fli-NA-Rzd"/>
-                                    <constraint firstItem="QLM-7J-53L" firstAttribute="leading" secondItem="jFb-Ix-TTy" secondAttribute="leading" id="tmg-NH-pSQ"/>
-                                </constraints>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="oF2-hm-rWL" appends="YES" id="Kon-wx-GfN"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="jFb-Ix-TTy" secondAttribute="trailing" id="0sr-4l-75r"/>
-                            <constraint firstItem="jFb-Ix-TTy" firstAttribute="top" secondItem="6no-k9-dmo" secondAttribute="bottom" id="XE8-3j-G9k"/>
-                            <constraint firstItem="HLG-1D-DKy" firstAttribute="top" secondItem="jFb-Ix-TTy" secondAttribute="bottom" id="cdi-dK-tfv"/>
-                            <constraint firstItem="jFb-Ix-TTy" firstAttribute="leading" secondItem="AJ2-gN-uFe" secondAttribute="leadingMargin" id="iNr-cP-ywC"/>
+                            <constraint firstItem="HLG-1D-DKy" firstAttribute="top" secondItem="aqq-fi-U6E" secondAttribute="bottom" id="GWz-6X-faE"/>
+                            <constraint firstItem="aqq-fi-U6E" firstAttribute="top" secondItem="6no-k9-dmo" secondAttribute="bottom" id="N1F-je-7tF"/>
+                            <constraint firstItem="aqq-fi-U6E" firstAttribute="leading" secondItem="AJ2-gN-uFe" secondAttribute="leadingMargin" id="gor-xc-YXj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aqq-fi-U6E" secondAttribute="trailing" id="sGL-XO-EM0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="sVw-Fx-mIV"/>
                     <connections>
-                        <outlet property="drawer" destination="jFb-Ix-TTy" id="o8p-mo-kIl"/>
+                        <outlet property="graphDraw" destination="aqq-fi-U6E" id="diJ-Np-WAB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Jq-Hg-M6T" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="oF2-hm-rWL">
+                    <connections>
+                        <action selector="zoomGraphScale:" destination="Geo-97-clV" id="idI-Gl-8Bu"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1627" y="1155"/>
         </scene>
