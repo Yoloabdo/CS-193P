@@ -429,6 +429,8 @@
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="oF2-hm-rWL" appends="YES" id="Kon-wx-GfN"/>
+                                    <outletCollection property="gestureRecognizers" destination="Qhi-bl-S7s" appends="YES" id="gGF-3b-aN5"/>
+                                    <outletCollection property="gestureRecognizers" destination="28W-ga-I1Q" appends="YES" id="PUC-ya-P9g"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -451,6 +453,16 @@
                         <action selector="zoomGraphScale:" destination="Geo-97-clV" id="idI-Gl-8Bu"/>
                     </connections>
                 </pinchGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="Qhi-bl-S7s">
+                    <connections>
+                        <action selector="movingCenter:" destination="Geo-97-clV" id="MKu-TE-Pcr"/>
+                    </connections>
+                </panGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="28W-ga-I1Q">
+                    <connections>
+                        <action selector="tapCenter:" destination="Geo-97-clV" id="cct-bi-vUA"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1627" y="1155"/>
         </scene>

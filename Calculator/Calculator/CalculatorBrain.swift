@@ -87,7 +87,9 @@ class CalculatorBrain {
                         newOpStack.append(op)
                     }else if let operand = Double(opSymbol){
                         newOpStack.append(.operand(operand))
-                    }
+                    }else{
+                        newOpStack.append(.variable(opSymbol))
+                        }
                 }
                 opStack = newOpStack
 

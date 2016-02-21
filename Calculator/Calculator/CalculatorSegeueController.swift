@@ -22,6 +22,7 @@ class CalculatorSegeueController: CalculatorViewController {
                 case "drawRes":
                     hvc.title = brain.discription == "" ? "Graph" :
                         brain.discription.componentsSeparatedByString(", ").last
+                    hvc.program = brain.program
                 default:
                     break
                 }

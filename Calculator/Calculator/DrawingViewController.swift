@@ -10,8 +10,19 @@ import UIKit
 
 class DrawingViewController: UIViewController, GraphViewDataSource {
 
-    var axesDrawer: AxesDrawer?
     
+    var scale: CGFloat = 50 {
+        didSet{
+            scale = min(max( scale, 0), 100)
+            updateUI()
+        }
+    }
+    
+    var origin: CGPoint? {
+        didSet{
+            updateUI()
+        }
+    }
   
     
     @IBOutlet weak var graphDraw: GraphView!{
@@ -19,9 +30,14 @@ class DrawingViewController: UIViewController, GraphViewDataSource {
             graphDraw.dataSource = self
         }
     }
+    @IBAction func tapCenter(sender: UITapGestureRecognizer) {
+        if sender.state == .Ended{
+            origin = sender.locationInView(graphDraw)
+        }
+    }
     
 
-    var brain = CalculatorBrain()
+    private var brain = CalculatorBrain()
     
     @IBAction func zoomGraphScale(sender: UIPinchGestureRecognizer) {
         if sender.state == .Changed{
@@ -31,41 +47,41 @@ class DrawingViewController: UIViewController, GraphViewDataSource {
 
     }
     
+    @IBAction func movingCenter(sender: AnyObject) {
+        if sender.state == .Changed{
+            origin = sender.locationInView(graphDraw)
+        }
+        
+    }
+    
     func scaleForGraphView(sender: GraphView) -> CGFloat {
         return scale
     }
-    
-    var scale: CGFloat = 50 {
-        didSet{
-            scale = min(max( scale, 0), 100)
-            updateUI()
-        }
-    }
+
     
     func updateUI(){
         graphDraw?.setNeedsDisplay()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+    func y(x: CGFloat) -> CGFloat? {
+        brain.variableValues["M"] = Double(x)
+        if let y = brain.evaluate() {
+            return CGFloat(y)
+        }
+        return nil
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    typealias PropertyList = AnyObject
+    
+    var program: PropertyList {
+        get {
+            return brain.program
+        }
+        set {
+            brain.program = newValue
+        }
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
