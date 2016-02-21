@@ -20,7 +20,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		506B19EF1C79F686005E3718 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		50BFBEB91C4D70D100E1CEE8 /* CalculatorBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
 		50CCD8C01C709B0C008B2C78 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		50CCD8C21C70D949008B2C78 /* CalculatorSegeueController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorSegeueController.swift; sourceTree = "<group>"; };
@@ -76,7 +75,6 @@
 				50DBD1521C6FAA19006773B6 /* DrawingViewController.swift */,
 				50CCD8C01C709B0C008B2C78 /* GraphView.swift */,
 				50CCD8C21C70D949008B2C78 /* CalculatorSegeueController.swift */,
-				506B19EF1C79F686005E3718 /* MyPlayground.playground */,
 			);
 			path = Calculator;
 			sourceTree = "<group>";
