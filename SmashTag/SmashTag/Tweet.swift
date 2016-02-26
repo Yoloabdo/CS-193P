@@ -153,7 +153,9 @@ private extension String {
         get {
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "EEE MMM dd HH:mm:ss Z yyyy"
+            dateFormatter.locale = NSLocale(localeIdentifier: "en_US")
             return dateFormatter.dateFromString(self)
         }
     }
 }
+
