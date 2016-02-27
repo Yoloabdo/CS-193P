@@ -28,15 +28,15 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="153.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kMG-wS-uDI">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="kMG-wS-uDI">
                                             <rect key="frame" x="8" y="8" width="60" height="60"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="60" id="oga-Pb-Qzc"/>
                                                 <constraint firstAttribute="width" constant="60" id="yFY-uw-xUU"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOW-bN-vNJ">
-                                            <rect key="frame" x="8" y="68" width="60" height="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="EOW-bN-vNJ">
+                                            <rect key="frame" x="8" y="68" width="60" height="77.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -58,6 +58,7 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="XTk-qs-tP0" secondAttribute="trailing" id="5yW-mS-W9g"/>
                                         <constraint firstAttribute="topMargin" secondItem="kMG-wS-uDI" secondAttribute="top" id="6tf-hf-lGX"/>
                                         <constraint firstItem="XTk-qs-tP0" firstAttribute="leading" secondItem="kMG-wS-uDI" secondAttribute="trailing" constant="8" symbolic="YES" id="AQZ-45-phn"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="EOW-bN-vNJ" secondAttribute="bottom" id="DHV-Jb-8aK"/>
                                         <constraint firstItem="X2p-aA-WdY" firstAttribute="top" secondItem="XTk-qs-tP0" secondAttribute="bottom" id="JgN-Z0-OF5"/>
                                         <constraint firstItem="EOW-bN-vNJ" firstAttribute="width" secondItem="kMG-wS-uDI" secondAttribute="width" id="QaE-yP-uff"/>
                                         <constraint firstItem="EOW-bN-vNJ" firstAttribute="leading" secondItem="07i-4s-tkL" secondAttribute="leadingMargin" id="Ykw-vJ-5me"/>

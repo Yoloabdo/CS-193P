@@ -28,9 +28,12 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+        
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         refresh()
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -52,6 +55,8 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
             return lastSuccessfulRequest!.requestForNewer
         }
     }
+ 
+    
     
     @IBAction private func refresh(sender: UIRefreshControl?) {
         if let request = nextRequestToAttempt {
@@ -110,8 +115,45 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
 
-        cell.tweet = tweets[indexPath.section][indexPath.row]
+        let tweet = tweets[indexPath.section][indexPath.row]
+        let request = NSURLRequest(URL: tweet.user.profileImageURL!)
+        
+        cell.dataTask = self.urlSession.dataTaskWithRequest(request) { (data, response, error) -> Void in
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                if error == nil && data != nil {
+                    let image = UIImage(data: data!)
+                    cell.tweetProfileImageView.image = image
+                }else {
+                    print(error)
+                }
+            })
+        }
+        
+        cell.tweet = tweet
+        cell.dataTask?.resume()
         return cell
+    }
+    
+    // MARK: - NSURLSession 
+    private var urlSession: NSURLSession!
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+        self.urlSession = NSURLSession(configuration: config)
+        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        urlSession.invalidateAndCancel()
+        urlSession = nil
+    }
+    
+    override func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if let cell = cell as? TweetTableViewCell {
+            cell.dataTask?.cancel()
+        }
     }
 
 }

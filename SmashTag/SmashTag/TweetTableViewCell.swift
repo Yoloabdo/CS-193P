@@ -22,12 +22,13 @@ class TweetTableViewCell: UITableViewCell {
     @IBOutlet weak var tweetProfileNameLabel: UILabel!
     
 
+    var dataTask: NSURLSessionDataTask?
 
     func updateUI(){
         // reset any existing tweet information
         tweetTextLabel?.attributedText = nil
         tweetProfileNameLabel?.text = nil
-        tweetProfileImageView?.image = nil
+        //tweetProfileImageView?.image = nil
         tweetCreatedLabel?.text = nil
         
         // load new information from our tweet (if any)
@@ -42,17 +43,18 @@ class TweetTableViewCell: UITableViewCell {
             
             tweetProfileNameLabel?.text = "\(tweet.user)" // tweet.user.description
             
-            if let profileImageURL = tweet.user.profileImageURL {
-                
-                let qos = Int(QOS_CLASS_DEFAULT.rawValue)
-                dispatch_async(dispatch_get_global_queue(qos, 0)){
-                    let imageData = NSData(contentsOfURL: profileImageURL)
-                    // blocks main thread!
-                    dispatch_async(dispatch_get_main_queue()){
-                        self.tweetProfileImageView?.image = UIImage(data: imageData!)
-                    }
-                }
-            }
+            // this let's you download the image everytime the cell is viewed, which is exhaustive for resources and doesn't cache as well.
+//            if let profileImageURL = tweet.user.profileImageURL {
+//                
+//                let qos = Int(QOS_CLASS_DEFAULT.rawValue)
+//                dispatch_async(dispatch_get_global_queue(qos, 0)){
+//                    let imageData = NSData(contentsOfURL: profileImageURL)
+//                    // blocks main thread!
+//                    dispatch_async(dispatch_get_main_queue()){
+//                        self.tweetProfileImageView?.image = UIImage(data: imageData!)
+//                    }
+//                }
+//            }
             
             let formatter = NSDateFormatter()
             if NSDate().timeIntervalSinceDate(tweet.created) > 24*60*60 {
