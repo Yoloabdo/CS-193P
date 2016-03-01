@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="z2p-9Z-he7">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -31,10 +31,20 @@
                             <constraint firstItem="yVU-a4-T5F" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ijm-GH-Fab"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="5Ym-Cu-xA8">
+                        <barButtonItem key="rightBarButtonItem" title="PopUp" id="CYi-KA-9ya">
+                            <connections>
+                                <action selector="pop:" destination="BYZ-38-t0r" id="5fs-qN-c4s"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="popUpitem" destination="CYi-KA-9ya" id="M2e-Up-PLQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="317" y="398"/>
+            <point key="canvasLocation" x="1129" y="398"/>
         </scene>
         <!--Back View Controller-->
         <scene sceneID="iGl-VP-cRb">
@@ -55,18 +65,47 @@
                                     <segue destination="yJu-1A-evu" kind="unwind" unwindAction="goBack:" id="2yx-pH-cVg"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1qt-1E-5xw">
+                                <rect key="frame" x="281" y="323" width="38" height="30"/>
+                                <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="login:" destination="FLi-Ww-L9P" eventType="touchUpInside" id="NMU-Sa-mFH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="tQw-YM-3aA" firstAttribute="centerY" secondItem="dRE-eL-Vsd" secondAttribute="centerY" id="UHZ-1i-7Tx"/>
                             <constraint firstItem="tQw-YM-3aA" firstAttribute="centerX" secondItem="dRE-eL-Vsd" secondAttribute="centerX" id="c64-Au-8Vf"/>
+                            <constraint firstItem="1qt-1E-5xw" firstAttribute="centerX" secondItem="tQw-YM-3aA" secondAttribute="centerX" id="fmk-t7-aq0"/>
+                            <constraint firstItem="1qt-1E-5xw" firstAttribute="top" secondItem="tQw-YM-3aA" secondAttribute="bottom" constant="8" id="tFI-8J-hAr"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y7U-f3-e06" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="yJu-1A-evu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1096" y="404"/>
+            <point key="canvasLocation" x="1908" y="404"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="wmW-aG-SDm">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="z2p-9Z-he7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="o90-5j-ogb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="4dx-ju-1zb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2vE-uX-CDu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="317" y="398"/>
         </scene>
     </scenes>
 </document>
