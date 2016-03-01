@@ -12,6 +12,12 @@ class DropitViewController: UIViewController {
 
     @IBOutlet weak var viewGame: UIView!
   
+    let gravity = UIGravityBehavior()
+    
+    lazy var animator: UIDynamicAnimator = {
+        let lazyAnimtor = UIDynamicAnimator(referenceView: self.viewGame)
+        return lazyAnimtor
+    }()
     var dropsPerRow = 10
     var dropSize: CGSize {
         let size = viewGame.bounds.size.width / CGFloat(dropsPerRow)
@@ -21,6 +27,13 @@ class DropitViewController: UIViewController {
         drop()
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        animator.addBehavior(gravity)
+    }
+    
+    
     func drop() {
         var frame = CGRect(origin: CGPointZero, size: dropSize)
         frame.origin.x = CGFloat.random(dropsPerRow) * dropSize.width
@@ -29,6 +42,7 @@ class DropitViewController: UIViewController {
         dropView.backgroundColor = UIColor.random
         
         viewGame.addSubview(dropView)
+        gravity.addItem(dropView)
     }
 }
 
