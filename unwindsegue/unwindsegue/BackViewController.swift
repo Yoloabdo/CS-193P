@@ -28,6 +28,11 @@ class BackViewController: UIViewController {
     @IBAction func login(sender: UIButton) {
         alert.addTextFieldWithConfigurationHandler{
             (textField) in
+            textField.placeholder = "User name"
+        }
+        
+        alert.addTextFieldWithConfigurationHandler{
+            (textField) in
             textField.placeholder = "Guidance password"
         }
         
@@ -41,6 +46,7 @@ class BackViewController: UIViewController {
             }
             
             })
+       
         presentViewController(alert, animated: true, completion: nil)
     }
    
