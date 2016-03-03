@@ -10,29 +10,54 @@ import UIKit
 
 class DropitViewController: UIViewController {
 
-    @IBOutlet weak var viewGame: UIView!
+    @IBOutlet weak var viewGame: BezierPathsView!
   
-    let gravity = UIGravityBehavior()
     
     lazy var animator: UIDynamicAnimator = {
         let lazyAnimtor = UIDynamicAnimator(referenceView: self.viewGame)
         return lazyAnimtor
     }()
+    
+    var dropitBehav = DropItBehavior()
+    
     var dropsPerRow = 10
     var dropSize: CGSize {
-        let size = viewGame.bounds.size.width / CGFloat(dropsPerRow)
+        var size = viewGame.bounds.size.width / CGFloat(dropsPerRow)
+        size += CGFloat.random(20)
         return CGSize(width: size, height: size)
     }
+   
+    
     @IBAction func drop(sender: UITapGestureRecognizer) {
         drop()
     }
     
+    func addPathBarrier(x: CGFloat, y : CGFloat, name: String){
+        let size = viewGame.bounds.size.width / CGFloat(10)
+        let barrierSize = CGSize(width: size, height: size)
+        let barrierOrigin = CGPoint(x: x - barrierSize.width/2 , y: y - barrierSize.height/2)
+        let path = UIBezierPath(ovalInRect: CGRect(origin: barrierOrigin, size: barrierSize))
+        dropitBehav.addBarrier(path, name: name)
+        viewGame.setPath(path, name: name)
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        animator.addBehavior(gravity)
+        animator.addBehavior(dropitBehav)
     }
     
+    private struct PathStory {
+        static let barrierName = "centerBarrier"
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+     
+//        addPathBarrier(viewGame.bounds.midX * 1.5 , y: viewGame.bounds.midX, name: "first")
+//        addPathBarrier(viewGame.bounds.midX/2, y: viewGame.bounds.midX, name: "third")
+        addPathBarrier(viewGame.bounds.midX, y: viewGame.bounds.midY, name: PathStory.barrierName)
+    }
     
     func drop() {
         var frame = CGRect(origin: CGPointZero, size: dropSize)
@@ -42,7 +67,8 @@ class DropitViewController: UIViewController {
         dropView.backgroundColor = UIColor.random
         
         viewGame.addSubview(dropView)
-        gravity.addItem(dropView)
+        
+        dropitBehav.addDrop(dropView)
     }
 }
 

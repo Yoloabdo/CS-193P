@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Calculator Segeue Controller-->
+        <!--Calculator app-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="CalculatorSegeueController" customModule="Calculator" customModuleProvider="target" sceneMemberID="viewController">
@@ -401,7 +401,7 @@
                             <constraint firstAttribute="trailing" secondItem="O0u-CQ-6ub" secondAttribute="trailing" id="WMM-4m-k9L"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="pdg-da-1bo"/>
+                    <navigationItem key="navigationItem" title="Calculator app" id="pdg-da-1bo"/>
                     <connections>
                         <outlet property="display" destination="9R1-1r-odJ" id="0HB-tR-FK2"/>
                         <outlet property="historyView" destination="V0O-tQ-UWO" id="TCR-UK-M0w"/>
