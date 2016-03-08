@@ -14,15 +14,16 @@ class TweetDetailsTableViewController: UITableViewController {
     var tweet: Tweet?{
         didSet{
             title = tweet?.user.screenName
-            if let media = tweet?.media {
+            if let media = tweet?.media where media.count > 0 {
                 tableDetails.append(tweetStruct(title: "Media",
                     data: [tweetItem.media(media)]))
             }
-            if let urls = tweet?.urls {
+            if let urls = tweet?.urls where urls.count > 0 {
                 tableDetails.append(tweetStruct(title: "URLs",
                     data: urls.map { tweetItem.Keyword($0.keyword) }))
+
             }
-            if let hashtags = tweet?.hashtags {
+            if let hashtags = tweet?.hashtags where hashtags.count > 0{
                 tableDetails.append(tweetStruct(title: "Hashtags",
                     data: hashtags.map { tweetItem.Keyword($0.keyword) }))
             }
@@ -52,6 +53,7 @@ class TweetDetailsTableViewController: UITableViewController {
         }
 
     }
+ 
     
     struct tweetStruct: CustomStringConvertible {
         var title: String
@@ -87,6 +89,13 @@ class TweetDetailsTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return tableDetails.count
     }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section == 0 && indexPath.row == 0 {
+            return 180
+        }
+        return 44
+    }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -102,6 +111,7 @@ class TweetDetailsTableViewController: UITableViewController {
         static let imageCellReuseIdentifier = "imageCell"
         static let collictionReuseCellIdentfier = "collictionCell"
         static let zoomedImageIdentfier = "imageViewZoomed"
+        static let searchAgainIdentfier = "SearchTag"
         
     }
     
@@ -136,9 +146,47 @@ class TweetDetailsTableViewController: UITableViewController {
         tableViewCell.setCollectionViewDataSourceDelegate(self, forRow: indexPath.row)
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let cell = tableView.cellForRowAtIndexPath(indexPath){
+            guard let label = cell.textLabel?.text else {return }
+            if label.containsString("t.co") {
+                UIApplication.sharedApplication().openURL(NSURL(string: label)!)
+            }else {
+                performSegueWithIdentifier(StoryBoard.searchAgainIdentfier, sender: cell)
+            }
+        }
+    }
 
  
     private var detailsSession: NSURLSession!
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identfier = segue.identifier {
+            switch identfier {
+            case StoryBoard.zoomedImageIdentfier:
+                let sender = sender as? MediaCollectionViewCell
+                let ivc = segue.destinationViewController as! ImageViewController
+                ivc.image = sender!.imageView?.image
+            case StoryBoard.searchAgainIdentfier:
+                if let ttvc = segue.destinationViewController as? TweetTableViewController {
+                    let sender = sender as? UITableViewCell
+                    guard let label = sender?.textLabel?.text else{
+                        return
+                    }
+                    ttvc.searchText = label
+//                    if label.containsString("t.co") {
+//                        UIApplication.sharedApplication().openURL(NSURL(string: label)!)
+//                    }else{
+//                        ttvc.searchText = label
+//                    }
+                }
+            default:
+                break
+            }
+        }
+    }
+    
+    
 
 
 }
@@ -153,14 +201,7 @@ extension TweetDetailsTableViewController: UICollectionViewDelegate, UICollectio
             
             return colliModel.count
     }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let sender = sender as? MediaCollectionViewCell {
-            if segue.identifier == StoryBoard.zoomedImageIdentfier {
-                let ivc = segue.destinationViewController as! ImageViewController
-                ivc.image = sender.imageView?.image
-            }
-        }
-    }
+  
     
     func collectionView(collectionView: UICollectionView,
         cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -170,16 +211,16 @@ extension TweetDetailsTableViewController: UICollectionViewDelegate, UICollectio
             
             if Reachability.isConnectedToNetwork(){
                 let request = NSURLRequest(URL: colliModel[indexPath.row].url)
-                print(request)
                 cell.dataTask = self.detailsSession.dataTaskWithRequest(request) { (data, response, error) -> Void in
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                        if let error = error {
-                            print(error)
+                        if let _ = error {
+                            assertionFailure("error request.")
                         }
                         if let data = data {
                             let image = UIImage(data: data)
                             if let imageCell = cell.imageView {
                                 imageCell.image = image
+                                cell.loadingImage.stopAnimating()
                             }
                             
                         }
@@ -190,7 +231,12 @@ extension TweetDetailsTableViewController: UICollectionViewDelegate, UICollectio
                 cell.dataTask?.resume()
 
             }else{
-                print("connection failed")
+                let alert = UIAlertController(title: "Connection failed", message: "check your internet connection", preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "Try again", style: .Default, handler: { _ in
+                    self.reloadInputViews()
+                }))
+                presentViewController(alert, animated: true, completion: nil)
             }
             
             return cell

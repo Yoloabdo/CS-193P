@@ -56,23 +56,35 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
             return lastSuccessfulRequest!.requestForNewer
         }
     }
- 
+    var numRows = true
     
     
     @IBAction private func refresh(sender: UIRefreshControl?) {
-        if let request = nextRequestToAttempt {
-            request.fetchTweets { (newTweets) -> Void in
-                dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                    if newTweets.count > 0 {
-                        self.lastSuccessfulRequest = request // oops, forgot this line in lecture
-                        self.tweets.insert(newTweets, atIndex: 0)
-                        self.tableView.reloadData()
+        if Reachability.isConnectedToNetwork(){
+            numRows = true
+            if let request = nextRequestToAttempt {
+                request.fetchTweets { (newTweets) -> Void in
+                    dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                        if newTweets.count > 0 {
+                            self.lastSuccessfulRequest = request // oops, forgot this line in lecture
+                            self.tweets.insert(newTweets, atIndex: 0)
+                            self.tableView.reloadData()
+                        }
+                        sender?.endRefreshing()
                     }
-                    sender?.endRefreshing()
                 }
+            } else {
+                sender?.endRefreshing()
             }
-        } else {
-            sender?.endRefreshing()
+        }else{
+            let alert = UIAlertController(title: "Connection failed", message: "check your internet connection", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { _ in
+                sender?.endRefreshing()}))
+            alert.addAction(UIAlertAction(title: "Try again", style: .Default, handler: { _ in
+                self.refresh()
+            }))
+            presentViewController(alert, animated: true, completion: nil)
+            numRows = false
         }
     }
     
@@ -115,7 +127,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tweets[section].count
+        if numRows {
+            return tweets[section].count
+        }
+        return 0
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
@@ -125,22 +140,20 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         let tweet = tweets[indexPath.section][indexPath.row]
         
         if Reachability.isConnectedToNetwork() {
-            let request = NSURLRequest(URL: tweet.user.profileImageURL!)
-            
-            cell.dataTask = urlSession.dataTaskWithRequest(request) { (data, response, error) -> Void in
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                    if error == nil && data != nil {
-                        let image = UIImage(data: data!)
-                        cell.tweetProfileImageView.image = image
-                    }else {
-//                         print(error)
-                    }
-                })
+            if let url = tweet.user.profileImageURL {
+                let request = NSURLRequest(URL: url)
+                
+                cell.dataTask = urlSession.dataTaskWithRequest(request) { (data, response, error) -> Void in
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        if error == nil && data != nil {
+                            let image = UIImage(data: data!)
+                            cell.profileImage = image
+                        }
+                    })
+                }
+                cell.dataTask?.resume()
             }
-            
-            cell.dataTask?.resume()
         }
-     
         
         cell.tweet = tweet
         return cell
@@ -165,6 +178,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     override func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if let cell = cell as? TweetTableViewCell {
             cell.dataTask?.cancel()
+            cell.dataTask = nil
         }
     }
     

@@ -57,6 +57,7 @@
 		5025247E1C7E66F700241C19 /* TweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
 		509F19CF1C8F1D9400A1A1EA /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		509F19D11C8F3BA300A1A1EA /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		509F19D31C8F64E300A1A1EA /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		50DE26DA1C80BE74000D144F /* TweetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewController.swift; sourceTree = "<group>"; };
 		50F85DA31C8D1E8E00A25F22 /* collictionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = collictionCell.swift; sourceTree = "<group>"; };
 		50F85DA51C8D22FE00A25F22 /* MediaCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -94,6 +95,7 @@
 		5025243D1C7E178800241C19 = {
 			isa = PBXGroup;
 			children = (
+				509F19D31C8F64E300A1A1EA /* MyPlayground.playground */,
 				502524481C7E178800241C19 /* SmashTag */,
 				5025245D1C7E178900241C19 /* SmashTagTests */,
 				502524471C7E178800241C19 /* Products */,

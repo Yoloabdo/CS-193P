@@ -9,6 +9,13 @@
 import UIKit
 
 class MediaCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var loadingImage: UIActivityIndicatorView!{
+        didSet{
+            loadingImage.startAnimating()
+            loadingImage.hidesWhenStopped = true
+        }
+    }
+    
     @IBOutlet weak var imageView: UIImageView!
     
     var dataTask: NSURLSessionDataTask?
