@@ -50,7 +50,7 @@ class TweetTableViewCell: UITableViewCell {
             attributedText.changeKeywordsColor(tweet.hashtags, color: hashtagColor)
             attributedText.changeKeywordsColor(tweet.urls, color: urlColor)
             attributedText.changeKeywordsColor(tweet.userMentions, color: userMentionsColor)
-            tweetTextLabel?.attributedText = attributedText
+            
             
             tweetTextLabel?.text = tweet.text
             if tweetTextLabel?.text != nil  {
@@ -58,6 +58,7 @@ class TweetTableViewCell: UITableViewCell {
                     tweetTextLabel.text! += " 📷"
                 }
             }
+            tweetTextLabel?.attributedText = attributedText
             
             
             tweetProfileNameLabel?.text = "\(tweet.user)" // tweet.user.description
