@@ -21,8 +21,13 @@ class TweetTableViewCell: UITableViewCell {
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var tweetProfileNameLabel: UILabel!
     
-
+    var hashtagColor = UIColor.blueColor()
+    var urlColor = UIColor.darkGrayColor()
+    var userMentionsColor = UIColor.grayColor()
     var dataTask: NSURLSessionDataTask?
+    
+ 
+
 
     func updateUI(){
         // reset any existing tweet information
@@ -34,12 +39,23 @@ class TweetTableViewCell: UITableViewCell {
         // load new information from our tweet (if any)
         if let tweet = self.tweet
         {
+            
+            
+            let attributedText = NSMutableAttributedString(string: tweet.text!)
+            attributedText.changeKeywordsColor(tweet.hashtags, color: hashtagColor)
+            attributedText.changeKeywordsColor(tweet.urls, color: urlColor)
+            attributedText.changeKeywordsColor(tweet.userMentions, color: userMentionsColor)
+            tweetTextLabel?.attributedText = attributedText
+            
             tweetTextLabel?.text = tweet.text
             if tweetTextLabel?.text != nil  {
                 for _ in tweet.media {
                     tweetTextLabel.text! += " 📷"
                 }
             }
+            
+          
+            
             
             tweetProfileNameLabel?.text = "\(tweet.user)" // tweet.user.description
             
@@ -67,3 +83,12 @@ class TweetTableViewCell: UITableViewCell {
     }
     
 }
+
+private extension NSMutableAttributedString {
+    func changeKeywordsColor(keywords: [Tweet.IndexedKeyword], color: UIColor) {
+        for keyword in keywords {
+            addAttribute(NSForegroundColorAttributeName, value: color, range: keyword.nsrange)
+        }
+    }
+}
+

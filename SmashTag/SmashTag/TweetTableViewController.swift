@@ -46,8 +46,9 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
 
     private var nextRequestToAttempt: TwitterRequest? {
         if lastSuccessfulRequest == nil {
-            if searchText != nil {
-                return TwitterRequest(search: searchText!, count: 100)
+            if let searchText = searchText {
+                history.addWord(searchText)
+                return TwitterRequest(search: searchText, count: 100)
             } else {
                 return nil
             }
@@ -80,6 +81,11 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         refresh(refreshControl)
     }
     
+    
+    // MARK: - Rresistance
+    
+    let history = PrestingHistory()
+    
     // MARK: - Storyboard Connectivity
     
     @IBOutlet private weak var searchTextField: UITextField! {
@@ -99,6 +105,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     
     private struct Storyboard {
         static let CellReuseIdentifier = "Tweet"
+        static let segue = "cellDetail"
     }
     
     // MARK: - UITableViewDataSource
@@ -124,7 +131,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
                     let image = UIImage(data: data!)
                     cell.tweetProfileImageView.image = image
                 }else {
-                    print(error)
+//                    print(error)
                 }
             })
         }
@@ -154,6 +161,21 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         if let cell = cell as? TweetTableViewCell {
             cell.dataTask?.cancel()
         }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == Storyboard.segue{
+            let tvc = segue.destinationViewController as! TweetDetailsTableViewController
+            let cell = sender as! TweetTableViewCell
+            if let indexPath = tableView.indexPathForCell(cell){
+                tvc.tweet = tweets[indexPath.section][indexPath.row]
+            }
+
+        }
+    }
+    
+    @IBAction func goBackToSearch(segue: UIStoryboardSegue){
+    
     }
 
 }
