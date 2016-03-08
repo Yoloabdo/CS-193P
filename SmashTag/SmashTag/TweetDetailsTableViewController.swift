@@ -15,7 +15,7 @@ class TweetDetailsTableViewController: UITableViewController {
         didSet{
             title = tweet?.user.screenName
             if let media = tweet?.media {
-                tableDetails.append(tweetStruct(title: "Images",
+                tableDetails.append(tweetStruct(title: "Media",
                     data: [tweetItem.media(media)]))
             }
             if let urls = tweet?.urls {
@@ -56,7 +56,6 @@ class TweetDetailsTableViewController: UITableViewController {
     struct tweetStruct: CustomStringConvertible {
         var title: String
         var data: [tweetItem]
-        
         var description: String { return "\(title): \(data)" }
 
     }
@@ -169,28 +168,34 @@ extension TweetDetailsTableViewController: UICollectionViewDelegate, UICollectio
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(StoryBoard.imageCellReuseIdentifier,
                 forIndexPath: indexPath) as! MediaCollectionViewCell
             
-            
-           let request = NSURLRequest(URL: colliModel[indexPath.row].url)
-            print(request)
-            cell.dataTask = self.detailsSession.dataTaskWithRequest(request) { (data, response, error) -> Void in
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                    if let error = error {
-                        print(error)
-                    }
-                    if let data = data {
-                        let image = UIImage(data: data)
-                        if let imageCell = cell.imageView {
-                            imageCell.image = image
+            if Reachability.isConnectedToNetwork(){
+                let request = NSURLRequest(URL: colliModel[indexPath.row].url)
+                print(request)
+                cell.dataTask = self.detailsSession.dataTaskWithRequest(request) { (data, response, error) -> Void in
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        if let error = error {
+                            print(error)
                         }
-                        
-                    }
-                })
+                        if let data = data {
+                            let image = UIImage(data: data)
+                            if let imageCell = cell.imageView {
+                                imageCell.image = image
+                            }
+                            
+                        }
+                    })
+                }
+                
+                
+                cell.dataTask?.resume()
+
+            }else{
+                print("connection failed")
             }
-    
-    
-            cell.dataTask?.resume()
+            
             return cell
     }
+    
     
     func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         if let cell = cell as? MediaCollectionViewCell {

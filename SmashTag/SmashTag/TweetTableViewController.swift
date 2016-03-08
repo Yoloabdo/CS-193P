@@ -123,21 +123,26 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
 
         let tweet = tweets[indexPath.section][indexPath.row]
-        let request = NSURLRequest(URL: tweet.user.profileImageURL!)
         
-        cell.dataTask = self.urlSession.dataTaskWithRequest(request) { (data, response, error) -> Void in
-            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                if error == nil && data != nil {
-                    let image = UIImage(data: data!)
-                    cell.tweetProfileImageView.image = image
-                }else {
-//                    print(error)
-                }
-            })
+        if Reachability.isConnectedToNetwork() {
+            let request = NSURLRequest(URL: tweet.user.profileImageURL!)
+            
+            cell.dataTask = urlSession.dataTaskWithRequest(request) { (data, response, error) -> Void in
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    if error == nil && data != nil {
+                        let image = UIImage(data: data!)
+                        cell.tweetProfileImageView.image = image
+                    }else {
+//                         print(error)
+                    }
+                })
+            }
+            
+            cell.dataTask?.resume()
         }
+     
         
         cell.tweet = tweet
-        cell.dataTask?.resume()
         return cell
     }
     
