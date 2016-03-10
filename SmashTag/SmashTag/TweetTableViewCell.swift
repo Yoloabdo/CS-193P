@@ -21,9 +21,9 @@ class TweetTableViewCell: UITableViewCell {
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var tweetProfileNameLabel: UILabel!
     
-    var hashtagColor = UIColor.blueColor()
-    var urlColor = UIColor.darkGrayColor()
-    var userMentionsColor = UIColor.grayColor()
+    var hashtagColor = UIColor.orangeColor()
+    var urlColor = UIColor.redColor()
+    var userMentionsColor = UIColor.blueColor()
     var dataTask: NSURLSessionDataTask?
     var profileImage: UIImage? {
         didSet{
@@ -44,21 +44,22 @@ class TweetTableViewCell: UITableViewCell {
         // load new information from our tweet (if any)
         if let tweet = tweet
         {
+            var tweetText = tweet.text
+
+            if tweet.media.count > 0{
+                tweetText.appendContentsOf(" 📷")
+            }
             
             
-            let attributedText = NSMutableAttributedString(string: tweet.text!)
+            
+            let attributedText = NSMutableAttributedString(string: tweetText)
             attributedText.changeKeywordsColor(tweet.hashtags, color: hashtagColor)
             attributedText.changeKeywordsColor(tweet.urls, color: urlColor)
             attributedText.changeKeywordsColor(tweet.userMentions, color: userMentionsColor)
             
-            
-            tweetTextLabel?.text = tweet.text
-            if tweetTextLabel?.text != nil  {
-                for _ in tweet.media {
-                    tweetTextLabel.text! += " 📷"
-                }
-            }
             tweetTextLabel?.attributedText = attributedText
+
+            
             
             
             tweetProfileNameLabel?.text = "\(tweet.user)" // tweet.user.description

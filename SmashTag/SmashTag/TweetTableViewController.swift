@@ -21,6 +21,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
             tweets.removeAll()
             tableView.reloadData() // clear out the table view
             refresh()
+            
         }
     }
     
