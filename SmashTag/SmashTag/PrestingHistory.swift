@@ -16,7 +16,7 @@ class PrestingHistory {
     
     private let defaults = NSUserDefaults.standardUserDefaults()
     
-    var searchHistory: [String]{
+    private var searchHistory: [String]{
         set{
             defaults.setObject(newValue, forKey: History.defaultsKey)
         }
@@ -25,6 +25,13 @@ class PrestingHistory {
         }
     }
     
+    func size() -> Int {
+        return searchHistory.count
+    }
+    
+    func getWordAtIndex(index: Int) -> String {
+        return searchHistory[index]
+    }
     func addWord(search: String){
         
         var currentSearches = searchHistory

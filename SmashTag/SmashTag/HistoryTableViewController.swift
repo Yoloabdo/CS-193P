@@ -32,7 +32,7 @@ class HistoryTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return PrestingHistory().searchHistory.count
+        return PrestingHistory().size()
     }
 
     
@@ -40,7 +40,7 @@ class HistoryTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = PrestingHistory().searchHistory[indexPath.row]
+        cell.textLabel?.text = PrestingHistory().getWordAtIndex(indexPath.row)
 
         return cell
     }
@@ -53,7 +53,6 @@ class HistoryTableViewController: UITableViewController {
         if editingStyle == .Delete {
             PrestingHistory().deleteWord(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            tableView.reloadData()
         }
     }
 
