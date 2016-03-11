@@ -25,7 +25,7 @@ class PrestingHistory {
         }
     }
     
-    func size() -> Int {
+    func count() -> Int {
         return searchHistory.count
     }
     
