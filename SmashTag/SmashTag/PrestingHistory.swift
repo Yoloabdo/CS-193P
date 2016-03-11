@@ -42,5 +42,11 @@ class PrestingHistory {
         searchHistory = currentSearches
     }
     
+    func deleteWord(index: Int) {
+        var currentSearches = searchHistory
+        currentSearches.removeAtIndex(index)
+        searchHistory = currentSearches
+    }
+    
    
 }
