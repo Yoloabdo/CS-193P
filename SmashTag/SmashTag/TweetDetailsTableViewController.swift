@@ -87,7 +87,7 @@ class TweetDetailsTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 0 && indexPath.row == 0 && !noMedia{
+        if indexPath.section == 0 && !noMedia{
             return 180
         }
         return 44
@@ -145,7 +145,7 @@ class TweetDetailsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let cell = tableView.cellForRowAtIndexPath(indexPath){
             guard let label = cell.textLabel?.text else {return }
-            if label.containsString("t.co") {
+            if label.hasPrefix("http") {
                 UIApplication.sharedApplication().openURL(NSURL(string: label)!)
             }else {
                 performSegueWithIdentifier(StoryBoard.searchAgainIdentfier, sender: cell)
