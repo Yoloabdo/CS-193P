@@ -63,16 +63,17 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
                 request.fetchTweets { (newTweets) -> Void in
                     dispatch_async(dispatch_get_main_queue()) { () -> Void in
                         if newTweets.count > 0 {
-                            self.lastSuccessfulRequest = request // oops, forgot this line in lecture
+                            self.lastSuccessfulRequest = request 
                             self.tweets.insert(newTweets, atIndex: 0)
                             self.tableView.reloadData()
                         }
                         sender?.endRefreshing()
+                        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                        
                     }
                 }
             } else {
                 sender?.endRefreshing()
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             }
         }else{
             let alert = UIAlertController(title: "Connection failed", message: "check your internet connection", preferredStyle: .Alert)
@@ -138,10 +139,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         let tweet = tweets[indexPath.section][indexPath.row]
         
         if Reachability.isConnectedToNetwork() {
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             if let url = tweet.user.profileImageURL {
                 let request = NSURLRequest(URL: url)
                 let urlSession = NSURLSession.sharedSession()
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = true
                 cell.dataTask = urlSession.dataTaskWithRequest(request) { (data, response, error) -> Void in
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                         if error == nil && data != nil {
@@ -164,7 +165,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         if let cell = cell as? TweetTableViewCell {
             cell.dataTask?.cancel()
             cell.dataTask = nil
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            
         }
     }
     

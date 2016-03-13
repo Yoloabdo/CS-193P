@@ -42,7 +42,7 @@ class TweetDetailsTableViewController: UITableViewController {
     var noMedia = true
     
     var tableDetails:[tweetStruct] = []
-    var colliModel = [MediaItem]()
+    var colliModel: [MediaItem]?
 
     enum tweetItem: CustomStringConvertible{
         case Keyword(String)
@@ -71,7 +71,6 @@ class TweetDetailsTableViewController: UITableViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
     }
     
 
@@ -127,6 +126,8 @@ class TweetDetailsTableViewController: UITableViewController {
                 forIndexPath: indexPath) as! collictionCell
             
                 colliModel = med
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+
             
             return cell
        
@@ -181,7 +182,7 @@ class TweetDetailsTableViewController: UITableViewController {
 
 }
 
-// extinsion in order to view images in the colliction view cell. 
+ // MARK: -UICollictionView: extinsion in order to view images in the colliction view cell.
 
 extension TweetDetailsTableViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -189,7 +190,7 @@ extension TweetDetailsTableViewController: UICollectionViewDelegate, UICollectio
     func collectionView(collectionView: UICollectionView,
         numberOfItemsInSection section: Int) -> Int {
             
-            return colliModel.count
+            return colliModel!.count
     }
   
     
@@ -200,7 +201,7 @@ extension TweetDetailsTableViewController: UICollectionViewDelegate, UICollectio
                 forIndexPath: indexPath) as! MediaCollectionViewCell
             
             if Reachability.isConnectedToNetwork(){
-                let request = NSURLRequest(URL: colliModel[indexPath.row].url)
+                let request = NSURLRequest(URL: colliModel![indexPath.row].url)
                 let urlSession = NSURLSession.sharedSession()
                 cell.dataTask = urlSession.dataTaskWithRequest(request) { (data, response, error) -> Void in
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -213,9 +214,9 @@ extension TweetDetailsTableViewController: UICollectionViewDelegate, UICollectio
                                 imageCell.image = image
                                 cell.loadingImage.stopAnimating()
                             }
+                            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                             
                         }
-                        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                     })
                 }
                 
