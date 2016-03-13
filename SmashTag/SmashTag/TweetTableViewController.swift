@@ -16,6 +16,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
 
     var searchText: String? {
         didSet {
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             lastSuccessfulRequest = nil
             searchTextField?.text = searchText
             tweets.removeAll()
@@ -71,6 +72,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
                 }
             } else {
                 sender?.endRefreshing()
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             }
         }else{
             let alert = UIAlertController(title: "Connection failed", message: "check your internet connection", preferredStyle: .Alert)
@@ -138,12 +140,14 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         if Reachability.isConnectedToNetwork() {
             if let url = tweet.user.profileImageURL {
                 let request = NSURLRequest(URL: url)
-                
+                let urlSession = NSURLSession.sharedSession()
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = true
                 cell.dataTask = urlSession.dataTaskWithRequest(request) { (data, response, error) -> Void in
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                         if error == nil && data != nil {
                             let image = UIImage(data: data!)
                             cell.profileImage = image
+                            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                         }
                     })
                 }
@@ -155,26 +159,12 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         return cell
     }
     
-    // MARK: - NSURLSession 
-    private var urlSession: NSURLSession!
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        self.urlSession = NSURLSession(configuration: config)
-        
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        urlSession.invalidateAndCancel()
-        urlSession = nil
-    }
     
     override func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if let cell = cell as? TweetTableViewCell {
             cell.dataTask?.cancel()
             cell.dataTask = nil
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
     }
     

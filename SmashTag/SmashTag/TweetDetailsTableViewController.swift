@@ -17,6 +17,7 @@ class TweetDetailsTableViewController: UITableViewController {
             if let media = tweet?.media where media.count > 0 {
                 tableDetails.append(tweetStruct(title: "Media",
                     data: [tweetItem.media(media)]))
+                noMedia = false
             }
             if let urls = tweet?.urls where urls.count > 0 {
                 tableDetails.append(tweetStruct(title: "URLs",
@@ -37,6 +38,8 @@ class TweetDetailsTableViewController: UITableViewController {
             }
         }
     }
+    
+    var noMedia = true
     
     var tableDetails:[tweetStruct] = []
     var colliModel = [MediaItem]()
@@ -65,9 +68,10 @@ class TweetDetailsTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        self.detailsSession = NSURLSession(configuration: config)
-
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
     }
     
 
@@ -83,7 +87,7 @@ class TweetDetailsTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 0 && indexPath.row == 0 {
+        if indexPath.section == 0 && indexPath.row == 0 && !noMedia{
             return 180
         }
         return 44
@@ -150,7 +154,6 @@ class TweetDetailsTableViewController: UITableViewController {
     }
 
  
-    private var detailsSession: NSURLSession!
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identfier = segue.identifier {
@@ -198,7 +201,8 @@ extension TweetDetailsTableViewController: UICollectionViewDelegate, UICollectio
             
             if Reachability.isConnectedToNetwork(){
                 let request = NSURLRequest(URL: colliModel[indexPath.row].url)
-                cell.dataTask = self.detailsSession.dataTaskWithRequest(request) { (data, response, error) -> Void in
+                let urlSession = NSURLSession.sharedSession()
+                cell.dataTask = urlSession.dataTaskWithRequest(request) { (data, response, error) -> Void in
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                         if let _ = error {
                             assertionFailure("error request.")
@@ -211,6 +215,7 @@ extension TweetDetailsTableViewController: UICollectionViewDelegate, UICollectio
                             }
                             
                         }
+                        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                     })
                 }
                 
@@ -233,6 +238,8 @@ extension TweetDetailsTableViewController: UICollectionViewDelegate, UICollectio
     func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         if let cell = cell as? MediaCollectionViewCell {
             cell.dataTask?.cancel()
+            cell.dataTask = nil
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
 
     }
