@@ -38,9 +38,9 @@ class GameViewController: UIViewController {
         }
     }
     
-    func baddle(){
+    func baddle(x: CGFloat = 50){
         let frame = CGRect(
-            x: gameView.bounds.width/2 - blockSize.width,
+            x: x,
             y: gameView.bounds.height - blockSize.height * 2,
             width: blockSize.width * 2,
             height: blockSize.height)
@@ -60,10 +60,8 @@ class GameViewController: UIViewController {
      
         setUpGame()
     }
-    @IBAction func moveBaddle(sender: UIGestureRecognizer) {
-        switch sender.state {
-        case .Began:
-        }
+    @IBAction func moveBaddle(sender: UIPanGestureRecognizer) {
+        // to do
     }
 }
 

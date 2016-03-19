@@ -22,6 +22,9 @@
                                 <rect key="frame" x="20" y="20" width="560" height="580"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="JBM-Xn-pGh" appends="YES" id="3yF-LF-ty6"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -37,11 +40,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="TM5-h8-Uol">
+                <tapGestureRecognizer id="TM5-h8-Uol"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="JBM-Xn-pGh">
                     <connections>
-                        <action selector="moveBaddle:" destination="BYZ-38-t0r" id="PPa-Ul-D1L"/>
+                        <action selector="moveBaddle:" destination="BYZ-38-t0r" id="sH0-FX-eFs"/>
                     </connections>
-                </tapGestureRecognizer>
+                </panGestureRecognizer>
             </objects>
         </scene>
     </scenes>
