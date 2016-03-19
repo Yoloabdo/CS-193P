@@ -10,7 +10,6 @@
 		50233F561C9733970031EE21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50233F551C9733970031EE21 /* AppDelegate.swift */; };
 		50233F581C9733970031EE21 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50233F571C9733970031EE21 /* ViewController.swift */; };
 		50233F5B1C9733970031EE21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50233F591C9733970031EE21 /* Main.storyboard */; };
-		50233F5E1C9733970031EE21 /* Trx.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 50233F5C1C9733970031EE21 /* Trx.xcdatamodeld */; };
 		50233F601C9733970031EE21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50233F5F1C9733970031EE21 /* Assets.xcassets */; };
 		50233F631C9733970031EE21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50233F611C9733970031EE21 /* LaunchScreen.storyboard */; };
 		50233F6E1C9733970031EE21 /* TrxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50233F6D1C9733970031EE21 /* TrxTests.swift */; };
@@ -39,7 +38,6 @@
 		50233F551C9733970031EE21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50233F571C9733970031EE21 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		50233F5A1C9733970031EE21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		50233F5D1C9733970031EE21 /* Trx.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Trx.xcdatamodel; sourceTree = "<group>"; };
 		50233F5F1C9733970031EE21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50233F621C9733970031EE21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		50233F641C9733970031EE21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -105,7 +103,6 @@
 				50233F5F1C9733970031EE21 /* Assets.xcassets */,
 				50233F611C9733970031EE21 /* LaunchScreen.storyboard */,
 				50233F641C9733970031EE21 /* Info.plist */,
-				50233F5C1C9733970031EE21 /* Trx.xcdatamodeld */,
 			);
 			path = Trx;
 			sourceTree = "<group>";
@@ -262,7 +259,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50233F5E1C9733970031EE21 /* Trx.xcdatamodeld in Sources */,
 				50233F581C9733970031EE21 /* ViewController.swift in Sources */,
 				50233F561C9733970031EE21 /* AppDelegate.swift in Sources */,
 			);
@@ -509,19 +505,6 @@
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		50233F5C1C9733970031EE21 /* Trx.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				50233F5D1C9733970031EE21 /* Trx.xcdatamodel */,
-			);
-			currentVersion = 50233F5D1C9733970031EE21 /* Trx.xcdatamodel */;
-			path = Trx.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 50233F4A1C9733970031EE21 /* Project object */;
 }
