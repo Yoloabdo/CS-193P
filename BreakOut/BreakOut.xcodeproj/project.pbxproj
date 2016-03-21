@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50BDF9151C9F36D00085DC16 /* BlocksBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BDF9141C9F36D00085DC16 /* BlocksBehavior.swift */; };
+		50BDF9171C9F3A0A0085DC16 /* BaddleBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BDF9161C9F3A0A0085DC16 /* BaddleBehavior.swift */; };
+		50BDF9191C9F3A1D0085DC16 /* HitBallBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BDF9181C9F3A1D0085DC16 /* HitBallBehavior.swift */; };
+		50BDF91B1C9FF3830085DC16 /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BDF91A1C9FF3830085DC16 /* BlockView.swift */; };
+		50BDF91D1CA04AC30085DC16 /* BallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BDF91C1CA04AC30085DC16 /* BallView.swift */; };
 		50D922331C9D9B300064BE1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D922321C9D9B300064BE1C /* AppDelegate.swift */; };
 		50D922351C9D9B300064BE1C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D922341C9D9B300064BE1C /* GameViewController.swift */; };
 		50D922381C9D9B300064BE1C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50D922361C9D9B300064BE1C /* Main.storyboard */; };
@@ -26,6 +31,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		50798AF91C9F0391002E7678 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		50BDF9141C9F36D00085DC16 /* BlocksBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlocksBehavior.swift; sourceTree = "<group>"; };
+		50BDF9161C9F3A0A0085DC16 /* BaddleBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaddleBehavior.swift; sourceTree = "<group>"; };
+		50BDF9181C9F3A1D0085DC16 /* HitBallBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitBallBehavior.swift; sourceTree = "<group>"; };
+		50BDF91A1C9FF3830085DC16 /* BlockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
+		50BDF91C1CA04AC30085DC16 /* BallView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallView.swift; sourceTree = "<group>"; };
 		50D9222F1C9D9B300064BE1C /* BreakOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreakOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50D922321C9D9B300064BE1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50D922341C9D9B300064BE1C /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +94,12 @@
 				50D922391C9D9B300064BE1C /* Assets.xcassets */,
 				50D9223B1C9D9B300064BE1C /* LaunchScreen.storyboard */,
 				50D9223E1C9D9B300064BE1C /* Info.plist */,
+				50798AF91C9F0391002E7678 /* MyPlayground.playground */,
+				50BDF9141C9F36D00085DC16 /* BlocksBehavior.swift */,
+				50BDF9161C9F3A0A0085DC16 /* BaddleBehavior.swift */,
+				50BDF9181C9F3A1D0085DC16 /* HitBallBehavior.swift */,
+				50BDF91A1C9FF3830085DC16 /* BlockView.swift */,
+				50BDF91C1CA04AC30085DC16 /* BallView.swift */,
 			);
 			path = BreakOut;
 			sourceTree = "<group>";
@@ -200,7 +217,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				50D922351C9D9B300064BE1C /* GameViewController.swift in Sources */,
+				50BDF9191C9F3A1D0085DC16 /* HitBallBehavior.swift in Sources */,
+				50BDF91D1CA04AC30085DC16 /* BallView.swift in Sources */,
 				50D922331C9D9B300064BE1C /* AppDelegate.swift in Sources */,
+				50BDF9151C9F36D00085DC16 /* BlocksBehavior.swift in Sources */,
+				50BDF91B1C9FF3830085DC16 /* BlockView.swift in Sources */,
+				50BDF9171C9F3A0A0085DC16 /* BaddleBehavior.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,6 +412,7 @@
 				50D9224E1C9D9B300064BE1C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		50D9224F1C9D9B300064BE1C /* Build configuration list for PBXNativeTarget "BreakOutTests" */ = {
 			isa = XCConfigurationList;
@@ -398,6 +421,7 @@
 				50D922511C9D9B300064BE1C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

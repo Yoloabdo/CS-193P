@@ -13,20 +13,40 @@ class GameViewController: UIViewController {
     @IBOutlet weak var gameView: UIView!
     
     var blocksPerRow = 8
+    let blockBehave = BlocksBehavior()
+    let baddleBehve = BaddleBehavior()
+    var baddleView: UIView!
+
+    
+    var attachment: UIAttachmentBehavior? {
+        willSet{
+            if attachment != nil{
+                animator.removeBehavior(attachment!)
+            }
+        }
+        didSet{
+            if attachment != nil{
+                animator.addBehavior(attachment!)
+            }
+        }
+    }
     
     var blockSize: CGSize {
         let size = gameView.bounds.size.width / CGFloat(blocksPerRow)
         return CGSize(width: size, height: size/2)
     }
+    
+    lazy var animator: UIDynamicAnimator = {
+        let lazyAnimtor = UIDynamicAnimator(referenceView: self.gameView)
+        return lazyAnimtor
+    }()
 
+
+    
     func block(x: CGFloat, y: CGFloat, color: UIColor){
         let frame = CGRect(origin: CGPoint(x: x, y: y), size: blockSize)
-        let blockView = UIView(frame: frame)
-        blockView.backgroundColor = color
-        blockView.layer.borderColor = UIColor.blackColor().CGColor
-        blockView.layer.borderWidth = 1.0
-        
-        gameView.addSubview(blockView)
+        let blockView = BlockView(frame: frame, color: color)
+        blockBehave.addView(blockView)
     }
     
     func creatingBlocks(){
@@ -38,16 +58,17 @@ class GameViewController: UIViewController {
         }
     }
     
+    
     func baddle(x: CGFloat = 50){
         let frame = CGRect(
             x: x,
             y: gameView.bounds.height - blockSize.height * 2,
             width: blockSize.width * 2,
             height: blockSize.height)
-        let baddleView = UIView(frame: frame)
+        baddleView = UIView(frame: frame)
         baddleView.backgroundColor = UIColor.blackColor()
-        baddleView.layer.borderColor = UIColor.redColor().CGColor
-        gameView.addSubview(baddleView)
+        
+        baddleBehve.addView(baddleView)
     }
     
     func setUpGame() {
@@ -57,11 +78,28 @@ class GameViewController: UIViewController {
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-     
+        animator.addBehavior(blockBehave)
+        animator.addBehavior(baddleBehve)
         setUpGame()
+        centerBaddle = gameView.bounds.height - blockSize.height * 1.5
     }
+    var centerBaddle:CGFloat?
+    
     @IBAction func moveBaddle(sender: UIPanGestureRecognizer) {
         // to do
+        let gesturePoint = sender.locationInView(gameView)
+
+        switch sender.state{
+        case .Began:
+            attachment = UIAttachmentBehavior.slidingAttachmentWithItem(baddleView, attachmentAnchor: gesturePoint, axisOfTranslation: CGVector(dx: 0, dy: 1.0))
+        case .Changed:
+            attachment?.anchorPoint = gesturePoint
+        case .Ended:
+            attachment = nil
+        default:
+            break
+        }
+
     }
 }
 
