@@ -72,6 +72,7 @@ class GameViewController: UIViewController {
         return baddleView
     }()
     
+    
     func setUpGame() {
         creatingBlocks()
         
@@ -83,9 +84,9 @@ class GameViewController: UIViewController {
         animator.addBehavior(blockBehave)
         animator.addBehavior(baddleBehve)
         setUpGame()
-        centerBaddle = gameView.bounds.height - blockSize.height * 1.5
     }
-    var centerBaddle:CGFloat?
+    
+    
     
     @IBAction func moveBaddle(sender: UIPanGestureRecognizer) {
         // to do
