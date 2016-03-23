@@ -30,7 +30,7 @@ class Behavior: UIDynamicBehavior {
     
     lazy var dropBehavior: UIDynamicItemBehavior = {
         let lazilyBehave = UIDynamicItemBehavior()
-        lazilyBehave.elasticity = 0.9
+        lazilyBehave.elasticity = 1
         return lazilyBehave
     }()
     
@@ -48,13 +48,20 @@ class Behavior: UIDynamicBehavior {
         gravity.addItem(view)
         collider.addItem(view)
         dropBehavior.addItem(view)
-        push.addItem(view)
     }
-    
+    struct Names {
+        static let boundary = "Boundary"
+    }
     func addBaddle(view: UIView){
         dynamicAnimator?.referenceView?.addSubview(view)
-        collider.addItem(view)
-        push.addItem(view)
+        collider.removeBoundaryWithIdentifier(Names.boundary)
+        let origin = view.frame.origin
+        let width = view.frame.width
+        let rightEdge = CGPoint(x: origin.x + width, y: origin.y)
+        
+        collider.addBoundaryWithIdentifier(Names.boundary,
+                                           fromPoint: origin ,
+                                           toPoint: rightEdge)
     }
     
     func addBlock(view: UIView) {

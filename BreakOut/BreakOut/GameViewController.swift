@@ -56,10 +56,9 @@ class GameViewController: UIViewController {
         }
     }
     
-//    var ball: UIBezierPath?
     
     lazy var ball: UIView = {
-        let ballview = BallView(frame: CGRect(origin: CGPoint(x: self.gameView.bounds.midX, y: self.gameView.bounds.midY) , size: CGSize(width: 25, height: 25)))
+        let ballview = BallView(frame: CGRect(origin: CGPoint(x: 59, y: self.gameView.bounds.midY) , size: CGSize(width: 25, height: 25)))
         ballview.backgroundColor = UIColor.blueColor()
         ballview.layer.cornerRadius = 10
         self.dynamicBehavior.addBall(ballview)
@@ -84,6 +83,7 @@ class GameViewController: UIViewController {
     func setUpGame() {
         creatingBlocks()
         ball.setNeedsDisplay()
+        baddle.setNeedsDisplay()
         
     }
     
@@ -105,6 +105,10 @@ class GameViewController: UIViewController {
         switch sender.state{
         case .Began:
             attachment = UIAttachmentBehavior.slidingAttachmentWithItem(baddle, attachmentAnchor: gesturePoint, axisOfTranslation: CGVector(dx: 0, dy: 1.0))
+            attachment?.action = {
+                [unowned self] in
+                self.dynamicBehavior.addBaddle(self.baddle)
+            }
         case .Changed:
             attachment?.anchorPoint = gesturePoint
         case .Ended:
