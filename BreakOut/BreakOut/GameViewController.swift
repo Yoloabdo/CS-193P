@@ -65,25 +65,25 @@ class GameViewController: UIViewController {
         return ballview
     }()
     
-    lazy var baddle: UIView = {
+    lazy var paddle: UIView = {
         [unowned self ] in
         let frame = CGRect(
             x: 50,
             y: self.gameView.bounds.height - self.blockSize.height * 2,
             width: self.blockSize.width * 2,
             height: self.blockSize.height)
-        let baddleView = UIView(frame: frame)
-        baddleView.backgroundColor = UIColor.blackColor()
+        let paddleView = UIView(frame: frame)
+        paddleView.backgroundColor = UIColor.blackColor()
         
-        self.dynamicBehavior.addBaddle(baddleView)
-        return baddleView
+        self.dynamicBehavior.addPaddle(paddleView)
+        return paddleView
     }()
     
     
     func setUpGame() {
         creatingBlocks()
         ball.setNeedsDisplay()
-        baddle.setNeedsDisplay()
+        paddle.setNeedsDisplay()
         
     }
     
@@ -99,15 +99,15 @@ class GameViewController: UIViewController {
     
     
     
-    @IBAction func moveBaddle(sender: UIPanGestureRecognizer) {
+    @IBAction func movePaddle(sender: UIPanGestureRecognizer) {
         let gesturePoint = sender.locationInView(gameView)
 
         switch sender.state{
         case .Began:
-            attachment = UIAttachmentBehavior.slidingAttachmentWithItem(baddle, attachmentAnchor: gesturePoint, axisOfTranslation: CGVector(dx: 0, dy: 1.0))
+            attachment = UIAttachmentBehavior.slidingAttachmentWithItem(paddle, attachmentAnchor: gesturePoint, axisOfTranslation: CGVector(dx: 0, dy: 1.0))
             attachment?.action = {
                 [unowned self] in
-                self.dynamicBehavior.addBaddle(self.baddle)
+                self.dynamicBehavior.addPaddle(self.paddle)
             }
         case .Changed:
             attachment?.anchorPoint = gesturePoint

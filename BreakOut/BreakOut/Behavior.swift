@@ -52,7 +52,7 @@ class Behavior: UIDynamicBehavior {
     struct Names {
         static let boundary = "Boundary"
     }
-    func addBaddle(view: UIView){
+    func addPaddle(view: UIView){
         dynamicAnimator?.referenceView?.addSubview(view)
         collider.removeBoundaryWithIdentifier(Names.boundary)
         let origin = view.frame.origin
