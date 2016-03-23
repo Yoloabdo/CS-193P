@@ -13,8 +13,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var gameView: UIView!
     
     var blocksPerRow = 8
-    let blockBehave = BlocksBehavior()
-    let baddleBehve = BaddleBehavior()
+    let dynamicBehavior = Behavior()
 
     
     var attachment: UIAttachmentBehavior? {
@@ -45,7 +44,7 @@ class GameViewController: UIViewController {
     func block(x: CGFloat, y: CGFloat, color: UIColor){
         let frame = CGRect(origin: CGPoint(x: x, y: y), size: blockSize)
         let blockView = BlockView(frame: frame, color: color)
-        blockBehave.addView(blockView)
+        dynamicBehavior.addBlock(blockView)
     }
     
     func creatingBlocks(){
@@ -57,6 +56,15 @@ class GameViewController: UIViewController {
         }
     }
     
+//    var ball: UIBezierPath?
+    
+    lazy var ball: UIView = {
+        let ballview = BallView(frame: CGRect(origin: CGPoint(x: self.gameView.bounds.midX, y: self.gameView.bounds.midY) , size: CGSize(width: 25, height: 25)))
+        ballview.backgroundColor = UIColor.blueColor()
+        ballview.layer.cornerRadius = 10
+        self.dynamicBehavior.addBall(ballview)
+        return ballview
+    }()
     
     lazy var baddle: UIView = {
         [unowned self ] in
@@ -68,28 +76,30 @@ class GameViewController: UIViewController {
         let baddleView = UIView(frame: frame)
         baddleView.backgroundColor = UIColor.blackColor()
         
-        self.baddleBehve.addView(baddleView)
+        self.dynamicBehavior.addBaddle(baddleView)
         return baddleView
     }()
     
     
     func setUpGame() {
         creatingBlocks()
+        ball.setNeedsDisplay()
         
     }
     
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        animator.addBehavior(blockBehave)
-        animator.addBehavior(baddleBehve)
+        animator.addBehavior(dynamicBehavior)
         setUpGame()
+        
+       
+        
     }
     
     
     
     @IBAction func moveBaddle(sender: UIPanGestureRecognizer) {
-        // to do
         let gesturePoint = sender.locationInView(gameView)
 
         switch sender.state{

@@ -1,5 +1,5 @@
 //
-//  BlocksBehavior.swift
+//  HitBallBehavior.swift
 //  BreakOut
 //
 //  Created by abdelrahman mohamed on 3/20/16.
@@ -8,12 +8,19 @@
 
 import UIKit
 
-class BlocksBehavior: UIDynamicBehavior {
-
+class Behavior: UIDynamicBehavior {
     
+//    all behaviors should be declared here, the varient is in adding the selected views to which behavior.
+    
+
     let gravity = UIGravityBehavior()
     
-    let push = UIPushBehavior()
+    lazy var push: UIPushBehavior = {
+    
+        let lazyPush = UIPushBehavior(items: [UIDynamicItem](), mode: .Instantaneous)
+        return lazyPush
+        
+    }()
     
     lazy var collider: UICollisionBehavior = {
         let lazyColide: UICollisionBehavior = UICollisionBehavior()
@@ -33,17 +40,30 @@ class BlocksBehavior: UIDynamicBehavior {
         addChildBehavior(gravity)
         addChildBehavior(dropBehavior)
         addChildBehavior(collider)
+        addChildBehavior(push)
     }
     
-    func addView(view: UIView){
+    func addBall(view: UIView) {
         dynamicAnimator?.referenceView?.addSubview(view)
-//        gravity.addItem(view)
+        gravity.addItem(view)
         collider.addItem(view)
         dropBehavior.addItem(view)
+        push.addItem(view)
+    }
+    
+    func addBaddle(view: UIView){
+        dynamicAnimator?.referenceView?.addSubview(view)
+        collider.addItem(view)
+        push.addItem(view)
+    }
+    
+    func addBlock(view: UIView) {
+        dynamicAnimator?.referenceView?.addSubview(view)
+        collider.addItem(view)
     }
     
     func removeView(view: UIView){
-//        gravity.removeItem(view)
+        gravity.removeItem(view)
         collider.removeItem(view)
         dropBehavior.removeItem(view)
         view.removeFromSuperview()
@@ -54,5 +74,4 @@ class BlocksBehavior: UIDynamicBehavior {
         collider.removeBoundaryWithIdentifier(name)
         collider.addBoundaryWithIdentifier(name, forPath: path)
     }
-
 }
