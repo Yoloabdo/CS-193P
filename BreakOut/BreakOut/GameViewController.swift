@@ -41,17 +41,22 @@ class GameViewController: UIViewController {
 
 
     
-    func block(x: CGFloat, y: CGFloat, color: UIColor){
+    func block(x: CGFloat, y: CGFloat, color: UIColor, index: Int) -> BlockView {
         let frame = CGRect(origin: CGPoint(x: x, y: y), size: blockSize)
-        let blockView = BlockView(frame: frame, color: color)
+        let blockView = BlockView(frame: frame, color: color, index: index)
         dynamicBehavior.addBlock(blockView)
+        return blockView
     }
     
+    
     func creatingBlocks(){
+        var count = 0
         for row in 0...10 {
             let color = UIColor.random
             for col in 0..<blocksPerRow{
-                block(CGFloat(col) * blockSize.width, y: CGFloat(row) * blockSize.height, color: color)
+                block(CGFloat(col) * blockSize.width, y: CGFloat(row) * blockSize.height, color: color, index: count)
+                count += 1
+                
             }
         }
     }

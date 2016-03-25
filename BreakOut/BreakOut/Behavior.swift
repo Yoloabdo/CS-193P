@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Behavior: UIDynamicBehavior {
+class Behavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
     
 //    all behaviors should be declared here, the varient is in adding the selected views to which behavior.
     
@@ -17,21 +17,28 @@ class Behavior: UIDynamicBehavior {
     
     lazy var push: UIPushBehavior = {
     
-        let lazyPush = UIPushBehavior(items: [UIDynamicItem](), mode: .Instantaneous)
-        return lazyPush
+        let lazyPushBehavior = UIPushBehavior(items: [], mode: UIPushBehaviorMode.Instantaneous)
+        lazyPushBehavior.pushDirection = CGVectorMake(0.1, 0.5)
+        lazyPushBehavior.active = true
+        return lazyPushBehavior
         
     }()
     
     lazy var collider: UICollisionBehavior = {
         let lazyColide: UICollisionBehavior = UICollisionBehavior()
         lazyColide.translatesReferenceBoundsIntoBoundary = true
+        lazyColide.collisionDelegate = self
+        lazyColide.collisionMode = .Everything
         return lazyColide as UICollisionBehavior
     }()
     
     lazy var dropBehavior: UIDynamicItemBehavior = {
-        let lazilyBehave = UIDynamicItemBehavior()
-        lazilyBehave.elasticity = 1
-        return lazilyBehave
+        let lazilyCreatedBallBehavior = UIDynamicItemBehavior()
+        lazilyCreatedBallBehavior.allowsRotation = true
+        lazilyCreatedBallBehavior.elasticity = 0.98
+        lazilyCreatedBallBehavior.friction = 0
+        lazilyCreatedBallBehavior.resistance = 0
+        return lazilyCreatedBallBehavior
     }()
     
     
@@ -45,29 +52,33 @@ class Behavior: UIDynamicBehavior {
     
     func addBall(view: UIView) {
         dynamicAnimator?.referenceView?.addSubview(view)
-        gravity.addItem(view)
         collider.addItem(view)
         dropBehavior.addItem(view)
-    }
-    struct Names {
-        static let boundary = "Boundary"
-    }
-    func addPaddle(view: UIView){
-        dynamicAnimator?.referenceView?.addSubview(view)
-        collider.removeBoundaryWithIdentifier(Names.boundary)
-        let origin = view.frame.origin
-        let width = view.frame.width
-        let rightEdge = CGPoint(x: origin.x + width, y: origin.y)
-        
-        collider.addBoundaryWithIdentifier(Names.boundary,
-                                           fromPoint: origin ,
-                                           toPoint: rightEdge)
+        push.addItem(view)
     }
     
-    func addBlock(view: UIView) {
-        dynamicAnimator?.referenceView?.addSubview(view)
-        collider.addItem(view)
+    struct Constants {
+        static let boundary = "Boundary"
+        static let radius: CGFloat = 1
     }
+    
+    func addPaddle(view: UIView){
+        dynamicAnimator?.referenceView?.addSubview(view)
+        collider.removeBoundaryWithIdentifier(Constants.boundary)
+        let path = UIBezierPath(roundedRect: view.frame, cornerRadius: Constants.radius)
+        collider.addBoundaryWithIdentifier(Constants.boundary,forPath: path)
+    }
+    
+    func addBlock(view: BlockView) {
+        dynamicAnimator?.referenceView?.addSubview(view)
+        collider.removeBoundaryWithIdentifier("\(view.index)")
+        let path = UIBezierPath(roundedRect: view.frame, cornerRadius: Constants.radius)
+        collider.addBoundaryWithIdentifier("\(view.index)",forPath: path)
+        blocks.append(view)
+    }
+    
+    var blocks = [BlockView]()
+    
     
     func removeView(view: UIView){
         gravity.removeItem(view)
@@ -80,5 +91,21 @@ class Behavior: UIDynamicBehavior {
     func addBarrier(path: UIBezierPath, name: String){
         collider.removeBoundaryWithIdentifier(name)
         collider.addBoundaryWithIdentifier(name, forPath: path)
+    }
+    
+    func removeBlock(identifier: Int){
+        collider.removeBoundaryWithIdentifier("\(identifier)")
+        let view = blocks[identifier]
+        removeView(view)
+        
+    }
+    
+    
+    
+    func collisionBehavior(behavior: UICollisionBehavior, endedContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?) {
+        
+        if let id = identifier, let index = Int(id as! String) {
+            removeBlock(index)
+        }
     }
 }

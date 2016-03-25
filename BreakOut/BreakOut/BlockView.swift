@@ -10,17 +10,13 @@ import UIKit
 
 class BlockView: UIView {
 
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
     var color: UIColor!
     
-    convenience init(frame: CGRect ,color: UIColor) {
+    var index: Int = 0
+    
+    convenience init(frame: CGRect ,color: UIColor, index: Int) {
         self.init(frame: frame)
+        self.index = index
         backgroundColor = color
         layer.borderColor = UIColor.blackColor().CGColor
         layer.borderWidth = 1.0
