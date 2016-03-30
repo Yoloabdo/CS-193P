@@ -1,0 +1,407 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		50C888041CA94D110007146E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C888031CA94D110007146E /* AppDelegate.swift */; };
+		50C888061CA94D110007146E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C888051CA94D110007146E /* ViewController.swift */; };
+		50C888091CA94D110007146E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50C888071CA94D110007146E /* Main.storyboard */; };
+		50C8880B1CA94D110007146E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50C8880A1CA94D110007146E /* Assets.xcassets */; };
+		50C8880E1CA94D110007146E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50C8880C1CA94D110007146E /* LaunchScreen.storyboard */; };
+		50C888191CA94D110007146E /* LocMaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C888181CA94D110007146E /* LocMaTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		50C888151CA94D110007146E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50C887F81CA94D110007146E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 50C887FF1CA94D110007146E;
+			remoteInfo = LocMa;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		50C888001CA94D110007146E /* LocMa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocMa.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		50C888031CA94D110007146E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		50C888051CA94D110007146E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		50C888081CA94D110007146E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		50C8880A1CA94D110007146E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		50C8880D1CA94D110007146E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		50C8880F1CA94D110007146E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50C888141CA94D110007146E /* LocMaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LocMaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		50C888181CA94D110007146E /* LocMaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocMaTests.swift; sourceTree = "<group>"; };
+		50C8881A1CA94D110007146E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		50C887FD1CA94D110007146E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50C888111CA94D110007146E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		50C887F71CA94D110007146E = {
+			isa = PBXGroup;
+			children = (
+				50C888021CA94D110007146E /* LocMa */,
+				50C888171CA94D110007146E /* LocMaTests */,
+				50C888011CA94D110007146E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		50C888011CA94D110007146E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				50C888001CA94D110007146E /* LocMa.app */,
+				50C888141CA94D110007146E /* LocMaTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		50C888021CA94D110007146E /* LocMa */ = {
+			isa = PBXGroup;
+			children = (
+				50C888031CA94D110007146E /* AppDelegate.swift */,
+				50C888051CA94D110007146E /* ViewController.swift */,
+				50C888071CA94D110007146E /* Main.storyboard */,
+				50C8880A1CA94D110007146E /* Assets.xcassets */,
+				50C8880C1CA94D110007146E /* LaunchScreen.storyboard */,
+				50C8880F1CA94D110007146E /* Info.plist */,
+			);
+			path = LocMa;
+			sourceTree = "<group>";
+		};
+		50C888171CA94D110007146E /* LocMaTests */ = {
+			isa = PBXGroup;
+			children = (
+				50C888181CA94D110007146E /* LocMaTests.swift */,
+				50C8881A1CA94D110007146E /* Info.plist */,
+			);
+			path = LocMaTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		50C887FF1CA94D110007146E /* LocMa */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50C8881D1CA94D110007146E /* Build configuration list for PBXNativeTarget "LocMa" */;
+			buildPhases = (
+				50C887FC1CA94D110007146E /* Sources */,
+				50C887FD1CA94D110007146E /* Frameworks */,
+				50C887FE1CA94D110007146E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LocMa;
+			productName = LocMa;
+			productReference = 50C888001CA94D110007146E /* LocMa.app */;
+			productType = "com.apple.product-type.application";
+		};
+		50C888131CA94D110007146E /* LocMaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50C888201CA94D110007146E /* Build configuration list for PBXNativeTarget "LocMaTests" */;
+			buildPhases = (
+				50C888101CA94D110007146E /* Sources */,
+				50C888111CA94D110007146E /* Frameworks */,
+				50C888121CA94D110007146E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				50C888161CA94D110007146E /* PBXTargetDependency */,
+			);
+			name = LocMaTests;
+			productName = LocMaTests;
+			productReference = 50C888141CA94D110007146E /* LocMaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		50C887F81CA94D110007146E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Abdulrhman dev";
+				TargetAttributes = {
+					50C887FF1CA94D110007146E = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 85R85ZNGEX;
+					};
+					50C888131CA94D110007146E = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 85R85ZNGEX;
+						TestTargetID = 50C887FF1CA94D110007146E;
+					};
+				};
+			};
+			buildConfigurationList = 50C887FB1CA94D110007146E /* Build configuration list for PBXProject "LocMa" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 50C887F71CA94D110007146E;
+			productRefGroup = 50C888011CA94D110007146E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				50C887FF1CA94D110007146E /* LocMa */,
+				50C888131CA94D110007146E /* LocMaTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		50C887FE1CA94D110007146E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50C8880E1CA94D110007146E /* LaunchScreen.storyboard in Resources */,
+				50C8880B1CA94D110007146E /* Assets.xcassets in Resources */,
+				50C888091CA94D110007146E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50C888121CA94D110007146E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		50C887FC1CA94D110007146E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50C888061CA94D110007146E /* ViewController.swift in Sources */,
+				50C888041CA94D110007146E /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50C888101CA94D110007146E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50C888191CA94D110007146E /* LocMaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		50C888161CA94D110007146E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 50C887FF1CA94D110007146E /* LocMa */;
+			targetProxy = 50C888151CA94D110007146E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		50C888071CA94D110007146E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				50C888081CA94D110007146E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		50C8880C1CA94D110007146E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				50C8880D1CA94D110007146E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		50C8881B1CA94D110007146E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		50C8881C1CA94D110007146E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		50C8881E1CA94D110007146E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LocMa/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Abdo.xCode.dev.LocMa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		50C8881F1CA94D110007146E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LocMa/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Abdo.xCode.dev.LocMa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		50C888211CA94D110007146E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LocMaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Abdo.xCode.dev.LocMaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LocMa.app/LocMa";
+			};
+			name = Debug;
+		};
+		50C888221CA94D110007146E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LocMaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Abdo.xCode.dev.LocMaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LocMa.app/LocMa";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		50C887FB1CA94D110007146E /* Build configuration list for PBXProject "LocMa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50C8881B1CA94D110007146E /* Debug */,
+				50C8881C1CA94D110007146E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		50C8881D1CA94D110007146E /* Build configuration list for PBXNativeTarget "LocMa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50C8881E1CA94D110007146E /* Debug */,
+				50C8881F1CA94D110007146E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		50C888201CA94D110007146E /* Build configuration list for PBXNativeTarget "LocMaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50C888211CA94D110007146E /* Debug */,
+				50C888221CA94D110007146E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 50C887F81CA94D110007146E /* Project object */;
+}

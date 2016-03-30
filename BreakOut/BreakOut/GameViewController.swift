@@ -10,11 +10,19 @@ import UIKit
 
 class GameViewController: UIViewController {
 
+    // MARK:- Outlets 
+    
     @IBOutlet weak var gameView: UIView!
+    
+    // MARK:- Vars and closures 
     
     var blocksPerRow = 8
     let dynamicBehavior = Behavior()
 
+    lazy var animator: UIDynamicAnimator = {
+        let lazyAnimtor = UIDynamicAnimator(referenceView: self.gameView)
+        return lazyAnimtor
+    }()
     
     var attachment: UIAttachmentBehavior? {
         willSet{
@@ -33,34 +41,6 @@ class GameViewController: UIViewController {
         let size = gameView.bounds.size.width / CGFloat(blocksPerRow)
         return CGSize(width: size, height: size/2)
     }
-    
-    lazy var animator: UIDynamicAnimator = {
-        let lazyAnimtor = UIDynamicAnimator(referenceView: self.gameView)
-        return lazyAnimtor
-    }()
-
-
-    
-    func block(x: CGFloat, y: CGFloat, color: UIColor, index: Int) -> BlockView {
-        let frame = CGRect(origin: CGPoint(x: x, y: y), size: blockSize)
-        let blockView = BlockView(frame: frame, color: color, index: index)
-        dynamicBehavior.addBlock(blockView)
-        return blockView
-    }
-    
-    
-    func creatingBlocks(){
-        var count = 0
-        for row in 0...10 {
-            let color = UIColor.random
-            for col in 0..<blocksPerRow{
-                block(CGFloat(col) * blockSize.width, y: CGFloat(row) * blockSize.height, color: color, index: count)
-                count += 1
-                
-            }
-        }
-    }
-    
     
     lazy var ball: UIView = {
         let ballview = BallView(frame: CGRect(origin: CGPoint(x: 59, y: self.gameView.bounds.midY) , size: CGSize(width: 25, height: 25)))
@@ -82,27 +62,37 @@ class GameViewController: UIViewController {
         
         self.dynamicBehavior.addPaddle(paddleView)
         return paddleView
-    }()
+        }()
     
+
+    // MARK:- View helper functions 
     
-    func setUpGame() {
-        creatingBlocks()
-        ball.setNeedsDisplay()
-        paddle.setNeedsDisplay()
-        
+    // drawing block func
+    func block(x: CGFloat, y: CGFloat, color: UIColor, index: Int) -> BlockView {
+        let frame = CGRect(origin: CGPoint(x: x, y: y), size: blockSize)
+        let blockView = BlockView(frame: frame, color: color, index: index)
+        dynamicBehavior.addBlock(blockView)
+        return blockView
+    }
+    
+    // iterating to bulid blocks
+    func creatingBlocks(){
+        var count = 0
+        for row in 0...10 {
+            let color = UIColor.random
+            for col in 0..<blocksPerRow{
+                block(CGFloat(col) * blockSize.width, y: CGFloat(row) * blockSize.height, color: color, index: count)
+                count += 1
+                
+            }
+        }
     }
     
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        animator.addBehavior(dynamicBehavior)
-        setUpGame()
-        
-       
-        
-    }
+
     
-    
+   
+    //MARK:- gesture actions
     
     @IBAction func movePaddle(sender: UIPanGestureRecognizer) {
         let gesturePoint = sender.locationInView(gameView)
@@ -123,9 +113,30 @@ class GameViewController: UIViewController {
         }
 
     }
+    
+    
+    // MARK:- launching functions
+    
+    func setUpGame() {
+        creatingBlocks()
+        ball.setNeedsDisplay()
+        paddle.setNeedsDisplay()
+        
+    }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        animator.addBehavior(dynamicBehavior)
+        setUpGame()
+        
+        
+        
+    }
+    
 }
 
-
+// MARK:- Extinsions 
 
 private extension UIColor{
     class var random: UIColor {
