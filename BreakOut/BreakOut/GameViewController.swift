@@ -18,6 +18,9 @@ class GameViewController: UIViewController {
     
     var blocksPerRow = 8
     let dynamicBehavior = Behavior()
+    var startingGame = true
+    var label: UILabel?
+
 
     lazy var animator: UIDynamicAnimator = {
         let lazyAnimtor = UIDynamicAnimator(referenceView: self.gameView)
@@ -37,16 +40,17 @@ class GameViewController: UIViewController {
         }
     }
     
+    
+    
     var blockSize: CGSize {
         let size = gameView.bounds.size.width / CGFloat(blocksPerRow)
         return CGSize(width: size, height: size/2)
     }
     
     lazy var ball: UIView = {
-        let ballview = BallView(frame: CGRect(origin: CGPoint(x: 59, y: self.gameView.bounds.midY) , size: CGSize(width: 25, height: 25)))
-        ballview.backgroundColor = UIColor.blueColor()
-        ballview.layer.cornerRadius = 10
-        self.dynamicBehavior.addBall(ballview)
+        var pos = CGPoint(x: 50, y: self.gameView.bounds.height - self.blockSize.height * 2 - 25)
+        let ballview = BallView(frame: CGRect(origin: pos , size: CGSize(width: 25, height: 25)))
+        
         return ballview
     }()
     
@@ -59,8 +63,6 @@ class GameViewController: UIViewController {
             height: self.blockSize.height)
         let paddleView = UIView(frame: frame)
         paddleView.backgroundColor = UIColor.blackColor()
-        
-        self.dynamicBehavior.addPaddle(paddleView)
         return paddleView
         }()
     
@@ -89,29 +91,53 @@ class GameViewController: UIViewController {
     }
     
     
-
+    
     
    
     //MARK:- gesture actions
     
-    @IBAction func movePaddle(sender: UIPanGestureRecognizer) {
-        let gesturePoint = sender.locationInView(gameView)
-
-        switch sender.state{
-        case .Began:
-            attachment = UIAttachmentBehavior.slidingAttachmentWithItem(paddle, attachmentAnchor: gesturePoint, axisOfTranslation: CGVector(dx: 0, dy: 1.0))
-            attachment?.action = {
-                [unowned self] in
-                self.dynamicBehavior.addPaddle(self.paddle)
-            }
-        case .Changed:
-            attachment?.anchorPoint = gesturePoint
+    @IBAction func pushTap(sender: UITapGestureRecognizer) {
+        
+        
+        switch  sender.state {
         case .Ended:
-            attachment = nil
+            fallthrough
+        case .Changed:
+            // starting game behavior
+            if startingGame {
+                self.dynamicBehavior.addPaddle(paddle)
+                self.dynamicBehavior.addBall(ball)
+                startingGame = false
+                label?.removeFromSuperview()
+            }
+            // pushingBehavior
+            dynamicBehavior.pushBall(ball)
         default:
             break
         }
 
+    }
+    
+    
+    @IBAction func movePaddle(sender: UIPanGestureRecognizer) {
+        let gesturePoint = sender.locationInView(gameView)
+
+        if !startingGame {
+            switch sender.state{
+            case .Began:
+                attachment = UIAttachmentBehavior.slidingAttachmentWithItem(paddle, attachmentAnchor: gesturePoint, axisOfTranslation: CGVector(dx: 0, dy: 1.0))
+                attachment?.action = {
+                    [unowned self] in
+                    self.dynamicBehavior.addPaddle(self.paddle)
+                }
+            case .Changed:
+                attachment?.anchorPoint = gesturePoint
+            case .Ended:
+                attachment = nil
+            default:
+                break
+            }
+        }
     }
     
     
@@ -121,16 +147,22 @@ class GameViewController: UIViewController {
         creatingBlocks()
         ball.setNeedsDisplay()
         paddle.setNeedsDisplay()
+        startingGameText()
         
     }
     
+    func startingGameText() {
+        let size = CGSize(width: gameView.bounds.width, height: gameView.bounds.height / 4)
+        label = UILabel(frame: CGRect(origin: CGPoint(x: gameView.bounds.minX, y: gameView.bounds.midY), size: size))
+        label!.text = "Tab to start The game!"
+        label?.textAlignment = .Center
+        gameView.addSubview(label!)
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         animator.addBehavior(dynamicBehavior)
         setUpGame()
-        
-        
         
     }
     
@@ -140,7 +172,7 @@ class GameViewController: UIViewController {
 
 private extension UIColor{
     class var random: UIColor {
-        switch arc4random() % 7 {
+        switch arc4random() % 8 {
         case 0: return UIColor.greenColor()
         case 1: return UIColor.redColor()
         case 2: return UIColor.blueColor()

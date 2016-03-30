@@ -18,12 +18,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jYn-BY-5Cc">
+                            <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jYn-BY-5Cc">
                                 <rect key="frame" x="20" y="20" width="560" height="580"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="JBM-Xn-pGh" appends="YES" id="3yF-LF-ty6"/>
+                                    <outletCollection property="gestureRecognizers" destination="Qec-qc-shi" appends="YES" id="qcV-MX-ky2"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -40,13 +41,18 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="TM5-h8-Uol"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="JBM-Xn-pGh">
                     <connections>
                         <action selector="movePaddle:" destination="BYZ-38-t0r" id="qBz-5N-MLF"/>
                     </connections>
                 </panGestureRecognizer>
+                <tapGestureRecognizer id="Qec-qc-shi">
+                    <connections>
+                        <action selector="pushTap:" destination="BYZ-38-t0r" id="6Sf-86-HGT"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="326" y="354"/>
         </scene>
     </scenes>
 </document>

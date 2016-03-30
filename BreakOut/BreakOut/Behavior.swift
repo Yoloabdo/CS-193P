@@ -13,10 +13,8 @@ class Behavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
 //    all behaviors should be declared here, the varient is in adding the selected views to which behavior.
     
 
-    let gravity = UIGravityBehavior()
     
     lazy var push: UIPushBehavior = {
-    
         let lazyPushBehavior = UIPushBehavior(items: [], mode: UIPushBehaviorMode.Instantaneous)
         lazyPushBehavior.pushDirection = CGVectorMake(0.1, 0.5)
         lazyPushBehavior.active = true
@@ -29,6 +27,9 @@ class Behavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
         lazyColide.translatesReferenceBoundsIntoBoundary = true
         lazyColide.collisionDelegate = self
         lazyColide.collisionMode = .Everything
+        lazyColide.action = {
+            
+        }
         return lazyColide as UICollisionBehavior
     }()
     
@@ -44,7 +45,6 @@ class Behavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
     
     override init() {
         super.init()
-        addChildBehavior(gravity)
         addChildBehavior(dropBehavior)
         addChildBehavior(collider)
         addChildBehavior(push)
@@ -55,6 +55,7 @@ class Behavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
         collider.addItem(view)
         dropBehavior.addItem(view)
         push.addItem(view)
+        
     }
     
     struct Constants {
@@ -81,7 +82,6 @@ class Behavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
     
     
     func removeView(view: UIView){
-        gravity.removeItem(view)
         collider.removeItem(view)
         dropBehavior.removeItem(view)
         view.removeFromSuperview()
@@ -100,6 +100,19 @@ class Behavior: UIDynamicBehavior, UICollisionBehaviorDelegate {
         
     }
     
+    
+    func pushBall(ball: UIView) {
+        let push = UIPushBehavior(items: [ball], mode: .Instantaneous)
+        push.magnitude = 1.0
+        
+        push.angle = CGFloat(Double(arc4random()) * M_PI * 2 / Double(UINT32_MAX))
+        push.action = { [weak push] in
+            if !push!.active {
+                self.removeChildBehavior(push!)
+            }
+        }
+        addChildBehavior(push)
+    }
     
     
     func collisionBehavior(behavior: UICollisionBehavior, endedContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?) {

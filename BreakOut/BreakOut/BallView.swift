@@ -10,17 +10,22 @@ import UIKit
 
 class BallView: UIView {
     
-    override var collisionBoundsType: UIDynamicItemCollisionBoundsType {
-        return .Ellipse
-    }
-
+//    override var collisionBoundsType: UIDynamicItemCollisionBoundsType {
+//        return .Ellipse
+//    }
+    
+    
+   
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
+     */
+  
+    override func layoutSubviews() {
+        let image = UIImage(named: "ball")
+        self.backgroundColor = UIColor(patternImage: image!)
+//        self.layer.cornerRadius = 10
     }
-    */
 
 }
 
